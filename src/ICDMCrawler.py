@@ -9,7 +9,7 @@ from bs4 import BeautifulSoup
 
 class ICDMCrawler:
     def crawlICDM(self, url, ouputDir, year): 
-        opener = urllib.request.urlopen(url)
+        opener = urllib.request.urlopen(url) 
         content = opener.read()
         content = content.decode('utf-8').encode('cp850', 'replace').decode('cp850')
         soup = BeautifulSoup(content)
