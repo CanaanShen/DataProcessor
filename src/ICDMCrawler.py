@@ -16,7 +16,7 @@ class ICDMCrawler:
         abstacts = soup.find_all('div', class_="panel-body")
         num = 0
         
-        for abstract in abstacts:
+        for abstract in abstacts: 
             file = os.path.join(outputDir, year + str(num)+".txt")
             fileHandler = open(file, "w")
             try:
