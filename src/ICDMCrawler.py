@@ -5,11 +5,10 @@ Created on Apr 26, 2015
 '''
 import os
 import urllib.request
-import re
 from bs4 import BeautifulSoup
 
 class ICDMCrawler:
-    def crawlICDM(self, url, ouputDir, year):
+    def crawlICDM(self, url, ouputDir, year): 
         opener = urllib.request.urlopen(url)
         content = opener.read()
         content = content.decode('utf-8').encode('cp850', 'replace').decode('cp850')
