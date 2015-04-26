@@ -27,7 +27,7 @@ class ICDMCrawler:
             num = num + 1 
         #for
 
-url = "http://icdm2014.sfu.ca/program_accepted_papers.html"
+url = "http://icdm2014.sfu.ca/program_accepted_papers.html" 
 rootDir = "..\\icdm"
 year = "14"
 outputDir = os.path.join(rootDir, year)
