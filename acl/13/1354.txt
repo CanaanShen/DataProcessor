@@ -1,0 +1,3 @@
+
+
+    We study the task of entity linking for Twitter, which tries to associate  each mention in a tweet with a corresponding knowledge base entry. Two main challenges of this task are the dearth of information in a single tweet and the rich entity mention variations.

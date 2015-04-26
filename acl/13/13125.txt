@@ -1,0 +1,5 @@
+
+
+    Over the last decade there has been significant work on automatic quantifier scope disambiguation (QSD) using statistical techniques. Recent advances in this area have improved upon earlier results by scoping an arbitrary number of noun phrases (NPs) with any type of quantification, including definites, indefinites, and bare NPs. However, no corpus-based method has yet been proposed to address automatic QSD in the presence of scopal operators, such as negation, or when dealing with plurality. In this paper, we present the first statistical model addressing QSD in the presence of both cases.
+
+    

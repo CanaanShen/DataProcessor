@@ -1,0 +1,5 @@
+
+
+    We present a city navigation and tourist information mobile dialogue application with integrated question-answering (QA) and geographic information system (GIS)  modules that helps pedestrian users to navigate in  and learn about urban environments. In contrast to existing mobile applications which treat these problems independently, our Android application addresses the problem of navigation and touristic question-answering in an integrated fashion using a shared dialogue context. We evaluated our system in comparison with Samsung S-Voice (which interfaces to Google navigation and Google search)  with 17 pedestrian users and found that users judged our system to be significantly more interesting to interact with and learn from. They also rated our system above Google search (with the  Samsung S-Voice interface) for  tourist information  tasks.
+
+    

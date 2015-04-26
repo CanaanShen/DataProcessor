@@ -1,0 +1,6 @@
+Multi-document summarization (MDS) systems have been designed for
+short, unstructured summaries of 10-15
+documents, and are inadequate for larger document collections.
+We propose a new approach to scaling up summarization called
+hierarchical summarization,
+and present the first implemented system, Summa.

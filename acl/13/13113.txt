@@ -1,0 +1,3 @@
+
+
+    Metaphor is an important way of conveying the affect of people, hence understanding how people use metaphors to convey affect is important for the communication between individuals and increases cohesion if the perceived affect of the concrete example is the same for the two individuals. Therefore, building computational models that can automatically identify the affect in metaphor-rich texts like "The team captain is a rock.", "Time is money.", "My lawyer is a shark." is an important challenging problem, which has been of great interest to the research community.

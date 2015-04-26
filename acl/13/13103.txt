@@ -1,0 +1,3 @@
+
+
+    Many current Natural Language Processing [NLP] techniques work well assuming a large context of text as input data. However they become  ineffective when applied to short texts such as Twitter feeds. %Adapting these NLP tools to short texts becomes a pressing need due to the pervasive presence of social media data such as Twitter messages. To overcome the issue, we want to find a related newswire document to a given tweet to provide contextual support for NLP tasks.  This requires a robust modeling and understanding of the semantics of short text data tweets.

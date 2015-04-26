@@ -1,0 +1,3 @@
+
+
+    We propose a new optimization framework for summarization by generalizing the submodular framework of (Lin and Bilmes, 2011). In our framework the desiderata for summarization is expressed as a sum of a submodular function and a non-submodular function, which we call dispersion; the latter uses intersentence dissimilarities in different ways in order to ensure non-redundancy of the summary.

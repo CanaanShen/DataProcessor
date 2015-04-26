@@ -1,0 +1,7 @@
+Following the works of \citeNCarletta96 and \citeNArt:Poe08, there is
+an increasing consensus within the field that in order to properly gauge
+the reliability of an annotation effort, chance-corrected measures of
+inter-annotator agreement should be used. With this in mind, it is
+striking that virtually all evaluations of syntactic annotation efforts
+use uncorrected parser evaluation metrics such as bracket F1 (for
+phrase structure) and accuracy scores (for dependencies).

@@ -1,0 +1,3 @@
+
+
+    Semi-supervised learning (SSL) methods augment standard machine learning (ML) techniques to leverage unlabeled data. SSL techniques are often effective in text classi?cation, where labeled data is scarce but large unlabeled corpora are readily available. However, existing SSL tech- niques typically require multiple passes over the entirety of the unlabeled data, meaning the techniques are not applicable to large corpora being produced today.

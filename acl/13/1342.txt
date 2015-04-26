@@ -1,0 +1,5 @@
+
+
+    Community question answering (QA) sites are one of the most important knowledge resources, which have accumulated billions of  answers for general questions. However, some malicious users may provide deceptive answers to promote their products or services. It is important to identify and filter out the deceptive answers. In this paper, we first solve this problem with the transitional supervised learning methods. We not only extract the textual features from answer content, but also investigate the answer contextual features to train a precise predictor. We further propose to use the user relation to identify the deceptive answer, based on the hypothesis that similar users will have similar behaviors to post deceptive or authentic answers. To measure the user similarity, we propose a novel user preference graph based on the answer preference expressed by users. The user preference graph is incorporated into traditional supervised learning framework with the graph regularization technique. The experimental results demonstrate that the user preference graph can indeed help improve the performance of deceptive answer prediction.
+
+    

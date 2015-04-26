@@ -1,0 +1,5 @@
+
+
+    We present a new translation model integrating the shallow local multi bottom-up tree transducer.  We perform a large-scale empirical evaluation of our obtained system, which demonstrates that we significantly beat a realistic tree-to-tree baseline on the WMT 2009 English-to-German translation task.  As an additional contribution we make the developed software and complete tool-chain publicly available for further experimentation.
+
+    

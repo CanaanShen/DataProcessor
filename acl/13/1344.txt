@@ -1,0 +1,5 @@
+
+
+    This paper proposes a novel smoothing model with a combinatorial optimization scheme for all-words word sense disambiguation from untagged corpora. By generalizing discrete senses to a continuum, we introduce a smoothing in context-sense space to cope with data-sparsity resulting from a large variety of linguistic context and sense, as well as to exploit sense-interdependency among the words in the same text string. Through the smoothing, all the optimal senses are obtained at one time under maximum marginal likelihood criterion, by competitive probabilistic kernels made to reinforce one another among nearby words, and to suppress conflicting sense hypotheses within the same word. Experimental results confirmed the superiority of the proposed method over conventional ones by showing the better performances beyond most-frequent-sense baseline performance where none of SemEval-2 unsupervised systems reached.
+
+    

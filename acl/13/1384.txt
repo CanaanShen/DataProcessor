@@ -1,0 +1,5 @@
+
+
+    This paper describes a method of inducing wide-coverage CCG resources for Japanese. While deep parsers with corpus-induced grammars have been emerging for some languages, those for Japanese have not been widely studied, mainly because most Japanese syntactic resources are dependency-based. Our method first integrates multiple dependency-based corpora into phrase structure trees and then converts the trees into CCG derivations. The method is empirically evaluated in terms of the coverage of the obtained lexicon and the accuracy of parsing.
+
+    

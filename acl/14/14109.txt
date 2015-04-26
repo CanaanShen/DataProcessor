@@ -1,0 +1,1 @@
+detect-all,detect-inline-family=math,detect-inline-weight=math,detect-display-math=true

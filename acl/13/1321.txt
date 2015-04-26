@@ -1,0 +1,3 @@
+
+
+    It is important that the testimony of children be admissible in court, especially given allegations of abuse. Unfortunately, children can be misled by interrogators or might offer false information, with dire consequences. In this work, we evaluate various parameterizations of five classifiers (including support vector machines, neural networks, and random forests) in deciphering truth from lies given transcripts of interviews with 198 victims of abuse between the ages of 4 and 7. These evaluations are performed using a novel set of syntactic features, including measures of complexity.

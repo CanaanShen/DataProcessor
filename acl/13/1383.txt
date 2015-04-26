@@ -1,0 +1,3 @@
+
+
+    In this paper we examine language modeling for text simplification.  Unlike some text-to-text translation tasks, text simplification is a monolingual translation task allowing for text in both the input and output domain to be used for training the language model.  We explore the relationship between normal English and simplified English and compare language models trained on varying amounts of text from each.  We evaluate the models intrinsically with perplexity and extrinsically on the lexical simplification task from SemEval

@@ -1,0 +1,9 @@
+Today?s event ordering research is heavily dependent on the annotated corpora available to it.
+The corpora influence shared evaluations and drive algorithm development.
+Partly due to this dependence, most research focuses on partial orderings of a document?s events.
+For instance, the TempEval competitions and the TimeBank only annotate small portions of the event graph.
+They focus on the most salient events or on specific types of event pairs (e.g., only events in the same sentence).
+Deeper temporal reasoners struggle with this sparsity because the entire temporal picture is not represented.
+This paper proposes a new annotation process with a unique mechanism to force annotators to label connected graphs.
+It generates 10 times more relations per document than the TimeBank and the corpus is larger than all current corpora.
+We hope this new annotation framework will encourage research on new models, particularly global models with deep reasoning.

@@ -1,0 +1,5 @@
+
+
+    Crowdsourcing, which allows us to cheaply and quickly gather large amounts of information contributed by volunteers online, has revolutionised the collection of labelled data. However, to create annotated linguistic resources from this data we face the problem of having to combine the judgements of a potentially large group of annotators. In this paper we investigate how to aggregate individual annotations into a single collective annotation, taking inspiration from the field of social choice theory. We formulate a general formal model for collective annotation and propose different aggregation methods that go beyond the commonly used majority rule. We test some of our methods on data from a crowdsourcing experiment on textual entailment annotation.
+
+    
