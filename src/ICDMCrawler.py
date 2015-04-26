@@ -24,8 +24,8 @@ class ICDMCrawler:
                 fileHandler.close()
             except:
                 print(num)
-            num = num + 1  
-        #for
+            num = num + 1   
+        #for 
 
 url = "http://icdm2014.sfu.ca/program_accepted_papers.html" 
 rootDir = "..\\icdm"
