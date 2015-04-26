@@ -5,7 +5,7 @@ Created on Apr 26, 2015
 '''
 import os
 import urllib.request
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup 
 
 class ICDMCrawler:
     def crawlICDM(self, url, ouputDir, year): 
