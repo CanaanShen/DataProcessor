@@ -20,7 +20,7 @@ class ICDMCrawler:
             file = os.path.join(outputDir, year + str(num)+".txt")
             fileHandler = open(file, "w")
             try:
-                fileHandler.write(abstract.text)
+                fileHandler.write(abstract.text) 
                 fileHandler.close()
             except:
                 print(num)
