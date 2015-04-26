@@ -21,7 +21,7 @@ class ICDMCrawler:
             fileHandler = open(file, "w")
             try:
                 fileHandler.write(abstract.text) 
-                fileHandler.close()
+                fileHandler.close() 
             except:
                 print(num)
             num = num + 1   
