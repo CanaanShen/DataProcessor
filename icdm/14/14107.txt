@@ -1,0 +1,3 @@
+
+      In this paper, we introduce a novel approach for incident ticket classification that aims at minimizing the manual labelling effort while achieving good quality predictions. To accomplish this, we devise a two-stage technique that employs hierarchical clustering using a combination of graph clustering (community finding) and topic modelling as a first stage, followed by either another round of hierarchical clustering or an active learning approach as a second stage. We evaluate the performance of our method in terms of manual labelling effort, prediction quality and efficiency on three real-world datasets and demonstrate that classical approaches to text classification are not well suited for incident ticket texts.
+      

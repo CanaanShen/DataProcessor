@@ -1,0 +1,3 @@
+
+      Threaded debate forums have become one of the major social media platforms. Usually people argue with one another using not only claims and evidences about the topic under discussion but also language used to organize them, which we refer to as shell. In this paper, we study how to separate shell from topical contents using unsupervised methods. Along this line, we develop a latent variable model named Shell Topic Model (STM) to jointly model both topics and shell. Experiments on real online debate data show that our model can find both meaningful shell and topics. The results also show the effectiveness of our model by comparing it with several baselines in shell phrases extraction, document classification and document modeling.
+      

@@ -1,0 +1,3 @@
+
+      Abstractâ??We consider the problem of learning predictive models for in-game sports play prediction. Focusing on basketball, we develop models for anticipating near-future events given the current game state. We employ a latent factor modeling approach, which leads to a compact data representation that enables efficient prediction given raw spatiotemporal tracking data. We validate our approach using tracking data from the 2012-2013 NBA season, and show that our model can make accurate in-game predictions. We provide a detailed inspection of our learned factors, and show that our model is interpretable and corresponds to known intuitions of basketball gameplay.
+      

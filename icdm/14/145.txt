@@ -1,0 +1,3 @@
+
+      Unsupervised feature selection is an important issue for high dimensional dataset analysis. However popular methods are susceptible to noisy instances (observations) or noisy features. We propose a noise-resistant feature selection algorithm by capturing multi-perspective correlations. Our proposed approach, called Noise-Resistant Unsupervised Feature Selection (NRFS), is based on multi-perspective correlation that reflects the importance of feature with respect to noise-resistant instance representatives and various global trends using spectral decomposition. In this way, the model concisely captures a wide variety of local patterns. Experimental results demonstrate the effectiveness and efficiency of our algorithm.
+      

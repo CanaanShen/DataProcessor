@@ -1,0 +1,3 @@
+
+      In this paper we address the problem of transition of IT operations from one service provider to another. We present analytics-driven solutions to generate a transition plan while addressing various aspects such as coverage, risk, time, and cost. We model the IT operations through graphs and use the well-defined problems in graph theory to build solutions for transition planner. We demonstrate the proof-of-concept of proposed ideas using two real-world case-studies.
+      
