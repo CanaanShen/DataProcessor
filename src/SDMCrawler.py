@@ -39,8 +39,8 @@ class SDMCrawler:
     #def
 #class
 
-url = "http://epubs.siam.org/doi/book/10.1137/1.9781611973440"
-rootDir = "..\\sdm"
+url = "http://papers.nips.cc/book/advances-in-neural-information-processing-systems-27-2014"
+rootDir = "..\\nips"
 year = "14"
 outputDir = os.path.join(rootDir, year)
 
