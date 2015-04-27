@@ -54,8 +54,8 @@ class AAAICrawler:
 
 #class
 aaaiCrawler = AAAICrawler()
-outputDir = "..\\mallet"
-year = "13"
+outputDir = "C:\\Users\\dcsliub\\Desktop\\abstactdata\\aaai\\text"
+year = "14"
 url = "http://www.aaai.org/ocs/index.php/AAAI/AAAI" + year + "/schedConf/presentations"
 aaaiCrawler.crawlURL(url, outputDir, year)
 print("Program ends")
