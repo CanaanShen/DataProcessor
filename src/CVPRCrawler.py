@@ -1,4 +1,5 @@
-
+ # -*- coding: utf-8 -*-
+ 
 import urllib.request
 import re
 import os
@@ -138,16 +139,40 @@ class CVPRCrawler:
         print(soup.find('body'))
         #print(soup.find('div', class_='text'))
     #def
+    
+    def crawlIEEEComuterSociety(self, url, year, outputDir, prefix):
+        
+        opener = urllib.request.urlopen(url)
+        content = opener.read()
+        soup = BeautifulSoup(content)
+        links = soup.find_all('a', text='ABSTRACT')
+        
+        num = 0
+        for link in links:
+            eachPaperURL = link.get('href')
+            eachPaperURL = prefix + eachPaperURL
+            
+            eachPaperOpener = urllib.request.urlopen(eachPaperURL)
+            eachPaperContent = eachPaperOpener.read()
+            soup = BeautifulSoup(eachPaperContent)
+            abstract = soup.find('div', attrs={'class':'abstractText'}).text
+            try:
+                outputFilePath = os.path.join(outputDir, year+str(num) + ".txt")
+                outputFileHandler = open(outputFilePath, "w")
+                outputFileHandler.write(abstract)
+                outputFileHandler.close()
+                print(num)
+            except:
+                print(str(num) + " exception")
+            num = num + 1
+#     
 #class
 
 cvprCrawler = CVPRCrawler()
-year = "10"
-url = "http://videolectures.net/cvpr2010_tian_godd/"
-rootDir = "..\\cvpr\\text"
+year = "09"
+url = "http://www.computer.org/csdl/proceedings/cvpr/2009/3992/00/index.html"
+rootDir = "C:\\Users\\dcsliub\\Desktop\\abstactdata\\cvpr\\text"
 outputDir = os.path.join(rootDir, year)
-
-#cvprCrawler.crawlURL2(url, year, outputDir)
-url = "http://ieeexplore.ieee.org/xpls/icp.jsp?arnumber=6247651"
-
-cvprCrawler.crawlFromIEEE(url, year, outputDir)
+prefix = "http://www.computer.org"
+cvprCrawler.crawlIEEEComuterSociety(url, year, outputDir, prefix)
 print("Program ends")
