@@ -6,11 +6,11 @@ Created on Apr 27, 2015
 
 import os
 from bs4 import BeautifulSoup
-import urllib.request
 
 class ACMExtractor:
     
     def extractAbstract(self, textDir, abstractDir, year, conference):
+        
         punctuation = [".", ",", ")", "(", "?", ":", "-"]
         dgwList = ["eg", "et", "al", "etc"]
         
@@ -27,6 +27,7 @@ class ACMExtractor:
 
             soup = BeautifulSoup(content)
             divList = soup.findAll('div', attrs={'style':'display:inline'})
+            
             num = 0
             for div in divList:
                 pList = div.findAll('p')
@@ -70,14 +71,17 @@ class ACMExtractor:
 #class
 
 acmExtractor = ACMExtractor()
-conference = "acl"
-year = "09"
-rootDir = r'C:\Users\dcsliub\Desktop\abstactdata' +'/' + conference 
+conference = "sigir"
+# year = "13"
+yearList = ["13", "12", "11", "10", "09"]
+rootDir = r'C:\Users\dcsliub\Desktop\abstactdata' +'\\' + conference 
 
 textDirName = "text"
 abstractDirName = "abstract"
-textDir = os.path.join(rootDir, textDirName, year)
-abstractDir = os.path.join(rootDir, abstractDirName, year)
 
-acmExtractor.extractAbstract(textDir, abstractDir, year, conference)
+for year in yearList:
+    textDir = os.path.join(rootDir, textDirName, year)
+    abstractDir = os.path.join(rootDir, abstractDirName, year)
+    acmExtractor.extractAbstract(textDir, abstractDir, year, conference)
+#for
 print("Program ends")

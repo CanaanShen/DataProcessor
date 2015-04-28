@@ -23,9 +23,14 @@ class Tester:
 #         word = "AccB-dd-Ed"
 #         word = word.replace("-", "")
 #         print(word)
-        str1 = "   aa   ddd    cc   "
+        str1 = "aadddcc"
+        if " " not in str1:
+            print(str1)
+#         if str1.isalpha():
+#             print(str1)
+        
         str2 = "aa"
-        print(str1.strip(" "))
+#         print(str1.strip(" "))
 #         if str1 is str2:
 #             print(str1)
          

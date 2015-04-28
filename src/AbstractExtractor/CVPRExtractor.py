@@ -11,6 +11,7 @@ class CVPRExtractor:
     def extractCVPR(self, textDir, abstractDir, year, prefix):
         
         punctuation = [".", ",", ")", "(", "?", ":", "-"]
+        dgwList = ["eg", "et", "al", "etc"]
         
         inSubDirPath = os.path.join(textDir, year)
         outSubDirPath = os.path.join(abstractDir, year)
@@ -54,6 +55,7 @@ class CVPRExtractor:
     def extractCVPR_Text(self, textDir, abstractDir, year, prefix):
         
         punctuation = [".", ",", ")", "(", "?", ":", "-"]
+        dgwList = ["eg", "et", "al", "etc"]
         
         inFile = os.path.join(textDir, year, prefix+year+".txt")
         outSubDirPath = os.path.join(abstractDir, year)
@@ -65,11 +67,11 @@ class CVPRExtractor:
         
         num = 0
         for line in content:
-            abstract = ""
+
             words = line.strip("\n").strip().lower().split()
             if len(words) < 15:    #title or author
                 continue
-            
+            abstract = ""
             for word in words:
                 for punct in punctuation:
                     if punct in word:
@@ -78,7 +80,12 @@ class CVPRExtractor:
                         
                 if not word.isalpha():                #English word
                     continue;
-                        
+                
+                for dgw in dgwList:                   #DGW
+                    if word == dgw:
+                        word = ""
+                        break;
+                
                 abstract = abstract + word + " "
             #for
             
@@ -90,14 +97,14 @@ class CVPRExtractor:
         #for
 #class
 
-conference = "cvpr"
-rootDir = "C:\\Users\\dcsliub\\Desktop\\abstactdata\\" + conference
+conference = "sigir"
+rootDir = r"C:\Users\dcsliub\Desktop\abstactdata" + "\\" + conference
 textDirName = "text"
 abstractDirName = "abstract"
-year = "11"
+year = "14"
 textDir = os.path.join(rootDir, textDirName)
 abstractDir = os.path.join(rootDir, abstractDirName)
-prefix = "cvpr"
+prefix = "sigir"
 cvprExtractor = CVPRExtractor()
 cvprExtractor.extractCVPR_Text(textDir, abstractDir, year, prefix)
 print("Program ends")
