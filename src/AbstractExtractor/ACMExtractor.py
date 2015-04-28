@@ -11,7 +11,7 @@ class ACMExtractor:
     
     def extractAbstract(self, textDir, abstractDir, year, conference):
         
-        punctuation = [".", ",", ")", "(", "?", ":", "-"]
+        punctuation = [".", ",", ")", "(", "?", ":", "'", "\"", ";"]
         dgwList = ["eg", "et", "al", "etc"]
         
         if not os.path.exists(abstractDir):
@@ -20,10 +20,8 @@ class ACMExtractor:
         for file in os.listdir(textDir):
             filePath = os.path.join(textDir, file)
             print(filePath)
-#             opener = urllib.request.urlopen(filePath)
-#             content = opener.read()
+
             content = open(filePath, "r").read()
-#             content = content.decode('utf-8').encode('cp850', 'replace').decode('cp850')
 
             soup = BeautifulSoup(content)
             divList = soup.findAll('div', attrs={'style':'display:inline'})
@@ -31,8 +29,8 @@ class ACMExtractor:
             num = 0
             for div in divList:
                 pList = div.findAll('p')
-                if len(pList) > 1:
-                    print(pList[0].text)
+#                 if len(pList) > 1:
+#                     print(pList[0].text)
                     
                 if not pList is None and len(pList) > 0:
                     abstract = ""
@@ -41,12 +39,19 @@ class ACMExtractor:
                         words = text.strip().lower().split()
                         newText = ""
                         for word in words:
+                            
                             for punct in punctuation:
                                 if punct in word:
                                     word = word.replace(punct, "")
                             #for
-                        
-                            if not word.isalpha():                #English word
+                            
+                            if "-" in word:
+                                subWords = word.split("-")
+                                word = ""
+                                for subWord in subWords:
+                                    word = word + " " + subWord
+                    
+                            if (" " not in word) and (not word.isalpha()):                #English word
                                 continue;
                             
                             for dgw in dgwList:                   #DGW
@@ -59,21 +64,24 @@ class ACMExtractor:
                         abstract = abstract + newText + " "
                     #for
                     
-                    file = os.path.join(abstractDir, conference + year + str(num) + ".txt")
-                    fileHandler = open(file, "w")
-                    fileHandler.write(abstract)
-                    fileHandler.close()
-                    print(num)
+                    try:
+                        file = os.path.join(abstractDir, conference + year + str(num) + ".txt")
+                        fileHandler = open(file, "w")
+                        fileHandler.write(abstract)
+                        fileHandler.close()
+                    except:
+                        print(Exception)
                     num = num + 1
+                    print(num)
                 #if
             #for
     #def
 #class
 
 acmExtractor = ACMExtractor()
-conference = "sigir"
+conference = "mm"
 # year = "13"
-yearList = ["13", "12", "11", "10", "09"]
+yearList = ["14", "13", "12", "11", "10", "09"]
 rootDir = r'C:\Users\dcsliub\Desktop\abstactdata' +'\\' + conference 
 
 textDirName = "text"

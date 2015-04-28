@@ -12,10 +12,12 @@ import os
 
 class IJCAIExtractor:
     
-    def extractIJCAI(self, textDir, abstractDir, year, prefix):
-        
-        punctuation = [".", ",", ")", "(", "?", ":", "-"]
-        
+    def __init__(self):
+        self.punctuation = [".", ",", ")", "(", "?", ":", "'", "\""]
+        self.dgwList = ["eg", "et", "al", "etc"]
+    
+    def extractIJCAI(self, textDir, abstractDir, year, conference):
+                
         inSubDirPath = os.path.join(textDir, year)
         outSubDirPath = os.path.join(abstractDir, year)
         if not os.path.exists(outSubDirPath):
@@ -35,18 +37,29 @@ class IJCAIExtractor:
                 words = line.strip("\n").strip().lower().split()
                 for word in words:
                         
-                    for punct in punctuation:
+                    for punct in self.punctuation:
                         if punct in word:
                             word = word.replace(punct, "")
                     #for
                         
-                    if not word.isalpha():                #English word
+                    if "-" in word:
+                        subWords = word.split("-")
+                        word = ""
+                        for subWord in subWords:
+                            word = word + " " + subWord
+                     
+                    if (" " not in word) and (not word.isalpha()):                #English word
                         continue;
+                            
+                    for dgw in self.dgwList:                   #DGW
+                        if word == dgw:
+                            word = ""
+                            break;
                         
                     abstract = abstract + word + " "
-                #for
-            #for
-            outFilePath = os.path.join(outSubDirPath, prefix + year + str(num) + ".txt")
+                #for word
+            #for line
+            outFilePath = os.path.join(outSubDirPath, conference + year + str(num) + ".txt")
             outFileHandler = open(outFilePath, "w")
             outFileHandler.write(abstract)
             outFileHandler.close()
@@ -55,11 +68,11 @@ class IJCAIExtractor:
         #for  
     #def
     
-    def extractIJCAI_Text(self, textDir, abstractDir, year, prefix):
+    def extractIJCAI_Text(self, textDir, abstractDir, year, conference):
         
-        punctuation = [".", ",", ")", "(", "?", ":", "-"]
+
         
-        inFile = os.path.join(textDir, year, prefix+year+".txt")
+        inFile = os.path.join(textDir, year, conference+year+".txt")
         outSubDirPath = os.path.join(abstractDir, year)
         if not os.path.exists(outSubDirPath):
             os.mkdir(outSubDirPath)
@@ -69,38 +82,50 @@ class IJCAIExtractor:
         
         num = 0
         for line in content:
-            abstract = ""
             words = line.strip("\n").strip().lower().split()
             if len(words) < 15:    #title or author
                 continue
             
+            abstract = ""
             for word in words:
-                for punct in punctuation:
+                for punct in self.punctuation:
                     if punct in word:
                         word = word.replace(punct, "")
                 #for
                         
-                if not word.isalpha():                #English word
+                if "-" in word:
+                    subWords = word.split("-")
+                    word = ""
+                    for subWord in subWords:
+                        word = word + " " + subWord
+                     
+                if (" " not in word) and (not word.isalpha()):                #English word
                     continue;
+                            
+                for dgw in self.dgwList:                   #DGW
+                    if word == dgw:
+                        word = ""
+                        break;
                         
                 abstract = abstract + word + " "
-            #for
+            #for word
             
-            outFile = os.path.join(outSubDirPath, prefix+year+str(num)+".txt")
+            outFile = os.path.join(outSubDirPath, conference+year+str(num)+".txt")
             outFileHandler = open(outFile, "w")
             outFileHandler.write(abstract)
             outFileHandler.close()
             num = num + 1
+            print(num)
         #for
 #class
 
 rootDir = "C:\\Users\\dcsliub\\Desktop\\abstactdata\\ijcai"
 textDirName = "text"
 abstractDirName = "abstract"
-year = "03"
+year = "13"
 textDir = os.path.join(rootDir, textDirName)
 abstractDir = os.path.join(rootDir, abstractDirName)
-prefix = "ijcai"
+conference = "ijcai"
 ijcaiExtractor = IJCAIExtractor()
-ijcaiExtractor.extractIJCAI_Text(textDir, abstractDir, year, prefix)
+ijcaiExtractor.extractIJCAI(textDir, abstractDir, year, conference)
 print("Program ends")

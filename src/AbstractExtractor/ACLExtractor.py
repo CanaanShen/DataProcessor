@@ -7,7 +7,7 @@ Created on Apr 27, 2015
 import os
 
 class ACLExtractor:
-    def extractACL(self, textDir, abstractDir, year, prefix):
+    def extractACL(self, textDir, abstractDir, year, conference):
         punctuation = [".", ",", ")", "(", "?", ":", "-"]
         dgwList = ["eg", "et", "al", "etc"]
         
@@ -46,7 +46,7 @@ class ACLExtractor:
                     abstract = abstract + word + " "
                 #for
             #for
-            outFilePath = os.path.join(outSubDirPath, prefix + year + str(num) + ".txt")
+            outFilePath = os.path.join(outSubDirPath, conference + year + str(num) + ".txt")
             outFileHandler = open(outFilePath, "w")
             outFileHandler.write(abstract)
             outFileHandler.close()
@@ -63,7 +63,7 @@ textDirName = "text"
 abstractDirName = "abstract"
 textDir = os.path.join(rootDir, textDirName, year)
 abstractDir = os.path.join(rootDir, abstractDirName, year)
-prefix = "acl"
+conference = "acl"
 aclExtractor = ACLExtractor()
-aclExtractor.extractACL(textDir, abstractDir, year, prefix)
+aclExtractor.extractACL(textDir, abstractDir, year, conference)
 print("Program ends")

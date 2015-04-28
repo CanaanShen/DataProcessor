@@ -6,9 +6,10 @@ Created on Apr 26, 2015
 import os
 
 class AAAIExtractor:
-    def extractAAAI(self, textDir, abstractDir, prefix):
+    def extractAAAI(self, textDir, abstractDir, conference):
         
-        punctuation = [".", ",", ")", "(", "?", ":", "-"]
+        punctuation = [".", ",", ")", "(", "?", ":", "'", "\""]
+        dgwList = ["eg", "et", "al", "etc"]
         
         for subDir in os.listdir(textDir):
             subDirPath = os.path.join(textDir, subDir)
@@ -35,19 +36,31 @@ class AAAIExtractor:
                                 word = word.replace(punct, "")
                         #for
                         
-                        if not word.isalpha():                #English word
+                        if "-" in word:
+                            subWords = word.split("-")
+                            word = ""
+                            for subWord in subWords:
+                                word = word + " " + subWord
+                     
+                        if (" " not in word) and (not word.isalpha()):                #English word
                             continue;
+                            
+                        for dgw in dgwList:                   #DGW
+                            if word == dgw:
+                                word = ""
+                                break;
                         
                         abstract = abstract + word + " "
-                    #for
-                #for
-                outFilePath = os.path.join(outSubDirPath, prefix + subDir + str(num) + ".txt")
+                    #for word
+                #for line
+                
+                outFilePath = os.path.join(outSubDirPath, conference + subDir + str(num) + ".txt")
                 outFileHandler = open(outFilePath, "w")
                 outFileHandler.write(abstract)
                 outFileHandler.close()
                 print(num)
                 num = num + 1
-            #for
+            #for eachFile
                         
             
         
@@ -58,7 +71,7 @@ textDirName = "text"
 abstractDirName = "abstract"
 textDir = os.path.join(rootDir, textDirName)
 abstractDir = os.path.join(rootDir, abstractDirName)
-prefix = "aaai"
+conference = "aaai"
 aaaiExtractor = AAAIExtractor()
-aaaiExtractor.extractAAAI(textDir, abstractDir, prefix)
+aaaiExtractor.extractAAAI(textDir, abstractDir, conference)
 print("Program ends")

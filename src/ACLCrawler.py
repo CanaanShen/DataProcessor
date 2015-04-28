@@ -35,7 +35,7 @@ class ACLCrawler:
         #for
 
     #def
-    def crawlACL13(self, url, outputDir, year, prefix):
+    def crawlACL13(self, url, outputDir, year, conference):
         opener = urllib.request.urlopen(url)
         content = opener.read()
         content = content.decode('utf-8').encode('cp850', 'replace').decode('cp850')
@@ -45,7 +45,7 @@ class ACLCrawler:
         
         for paperLink in paperLinks:
             link = paperLink.get('href')
-            fullLink = prefix + link
+            fullLink = conference + link
             
             opener = urllib.request.urlopen(fullLink)
             content = opener.read()
@@ -77,7 +77,7 @@ url = "http://acl2013.org/site/accepted-papers.html"
 rootDir = "..\\acl"
 year = "13"
 outputDir = os.path.join(rootDir, year)
-prefix = "http://acl2013.org/site/"
+conference = "http://acl2013.org/site/"
 aclCrawler = ACLCrawler()
-aclCrawler.crawlACL13(url, outputDir, year, prefix)
+aclCrawler.crawlACL13(url, outputDir, year, conference)
 print("Program ends")

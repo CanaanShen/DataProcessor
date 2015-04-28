@@ -8,9 +8,11 @@ import os
 
 class JMLRExtractor:
     
-    def extractJMLR(self, textDir, abstractDir, prefix):
+    def __init__(self):
+        self.punctuation = [".", ",", ")", "(", "?", ":", "'", "\"", ";"]
+        self.dgwList = ["eg", "et", "al", "etc"]
         
-        punctuation = [".", ",", ")", "(", "?", ":", "-"]
+    def extractJMLR(self, textDir, abstractDir, conference):
         
         for subDir in os.listdir(textDir):
             subDirPath = os.path.join(textDir, subDir)
@@ -32,18 +34,29 @@ class JMLRExtractor:
                     words = line.strip("\n").strip().lower().split()
                     for word in words:
                         
-                        for punct in punctuation:
+                        for punct in self.punctuation:
                             if punct in word:
                                 word = word.replace(punct, "")
                         #for
                         
-                        if not word.isalpha():                #English word
+                        if "-" in word:
+                            subWords = word.split("-")
+                            word = ""
+                            for subWord in subWords:
+                                word = word + " " + subWord
+                     
+                        if (" " not in word) and (not word.isalpha()):                #English word
                             continue;
+                            
+                        for dgw in self.dgwList:                   #DGW
+                            if word == dgw:
+                                word = ""
+                                break;
                         
                         abstract = abstract + word + " "
                     #for
                 #for
-                outFilePath = os.path.join(outSubDirPath, prefix + subDir + str(num) + ".txt")
+                outFilePath = os.path.join(outSubDirPath, conference + subDir + str(num) + ".txt")
                 outFileHandler = open(outFilePath, "w")
                 outFileHandler.write(abstract)
                 outFileHandler.close()
@@ -59,7 +72,7 @@ textDirName = "text"
 abstractDirName = "abstract"
 textDir = os.path.join(rootDir, textDirName)
 abstractDir = os.path.join(rootDir, abstractDirName)
-prefix = "jmlr"
+conference = "jmlr"
 jmlrExtractor = JMLRExtractor()
-jmlrExtractor.extractJMLR(textDir, abstractDir, prefix)
+jmlrExtractor.extractJMLR(textDir, abstractDir, conference)
 print("Program ends")

@@ -140,7 +140,7 @@ class CVPRCrawler:
         #print(soup.find('div', class_='text'))
     #def
     
-    def crawlIEEEComuterSociety(self, url, year, outputDir, prefix):
+    def crawlIEEEComuterSociety(self, url, year, outputDir, conference):
         
         opener = urllib.request.urlopen(url)
         content = opener.read()
@@ -150,7 +150,7 @@ class CVPRCrawler:
         num = 0
         for link in links:
             eachPaperURL = link.get('href')
-            eachPaperURL = prefix + eachPaperURL
+            eachPaperURL = conference + eachPaperURL
             
             eachPaperOpener = urllib.request.urlopen(eachPaperURL)
             eachPaperContent = eachPaperOpener.read()
@@ -173,6 +173,6 @@ year = "09"
 url = "http://www.computer.org/csdl/proceedings/cvpr/2009/3992/00/index.html"
 rootDir = "C:\\Users\\dcsliub\\Desktop\\abstactdata\\cvpr\\text"
 outputDir = os.path.join(rootDir, year)
-prefix = "http://www.computer.org"
-cvprCrawler.crawlIEEEComuterSociety(url, year, outputDir, prefix)
+conference = "http://www.computer.org"
+cvprCrawler.crawlIEEEComuterSociety(url, year, outputDir, conference)
 print("Program ends")

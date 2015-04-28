@@ -23,8 +23,8 @@ class Tester:
 #         word = "AccB-dd-Ed"
 #         word = word.replace("-", "")
 #         print(word)
-        str1 = "aadddcc"
-        if " " not in str1:
+        str1 = "aadd\"dcc"
+        if "\"" in str1:
             print(str1)
 #         if str1.isalpha():
 #             print(str1)

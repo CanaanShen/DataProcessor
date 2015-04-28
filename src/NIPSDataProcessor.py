@@ -29,7 +29,7 @@ class NIPSDataProcessor:
                 beginMark = 0
                 mark = 0
                 doc = ""
-                prefix = ""
+                conference = ""
                 while True:
                     line = eachFileHandler.readline()
                     
@@ -61,8 +61,8 @@ class NIPSDataProcessor:
                             index = index + 1   #the next one
                             
                             if index == 0: #the first word
-                                word = prefix + word
-                                prefix = ""
+                                word = conference + word
+                                conference = ""
                             
                             for punct in punctuation:
                                 if punct in word:
@@ -78,7 +78,7 @@ class NIPSDataProcessor:
                                 
                                 if "-" in word:
                                     word = word.replace("-", "")
-                                    prefix = word
+                                    conference = word
                                 else:
                                     newLine = newLine + word + " "
                         #for\

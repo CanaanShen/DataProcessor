@@ -10,7 +10,7 @@ from bs4 import BeautifulSoup
 
 class JMLRCrawler:
     
-    def crawler(self, url, prefix, volume, outputDir):
+    def crawler(self, url, conference, volume, outputDir):
         opener = urllib.request.urlopen(url)
         content = opener.read()
         content = content.decode('utf-8').encode('cp850', 'replace').decode('cp850')
@@ -21,7 +21,7 @@ class JMLRCrawler:
         for link in allABSLinks:
             absLink = link.get('href')
             if not "http://www.jmlr.org/" in absLink:
-                absLink = prefix + absLink
+                absLink = conference + absLink
             
             opener = urllib.request.urlopen(absLink)
             content = opener.read()
@@ -63,7 +63,7 @@ class JMLRCrawler:
     #def
 #class  
 volume = 7
-prefix = "http://jmlr.csail.mit.edu"
+conference = "http://jmlr.csail.mit.edu"
 url = "http://jmlr.csail.mit.edu/papers/v" + str(volume) + "/"
 rootDir = "..\\jmlr"
 outputDir = os.path.join(rootDir, str(volume))
@@ -72,5 +72,5 @@ if not os.path.exists(outputDir):
     os.mkdir(outputDir)
 
 jmlrCrawler = JMLRCrawler()
-jmlrCrawler.crawler(url, prefix, volume, outputDir)
+jmlrCrawler.crawler(url, conference, volume, outputDir)
 print("Program ends")

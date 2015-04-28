@@ -8,9 +8,9 @@ import os
 
 class CVPRExtractor:
     
-    def extractCVPR(self, textDir, abstractDir, year, prefix):
+    def extractCVPR(self, textDir, abstractDir, year, conference):
         
-        punctuation = [".", ",", ")", "(", "?", ":", "-"]
+        punctuation = [".", ",", ")", "(", "?", ":", "'", "\""]
         dgwList = ["eg", "et", "al", "etc"]
         
         inSubDirPath = os.path.join(textDir, year)
@@ -37,13 +37,24 @@ class CVPRExtractor:
                             word = word.replace(punct, "")
                     #for
                         
-                    if not word.isalpha():                #English word
+                    if "-" in word:
+                        subWords = word.split("-")
+                        word = ""
+                        for subWord in subWords:
+                            word = word + " " + subWord
+                     
+                    if (" " not in word) and (not word.isalpha()):                #English word
                         continue;
+                            
+                    for dgw in dgwList:                   #DGW
+                        if word == dgw:
+                            word = ""
+                            break;
                         
                     abstract = abstract + word + " "
                 #for
             #for
-            outFilePath = os.path.join(outSubDirPath, prefix + year + str(num) + ".txt")
+            outFilePath = os.path.join(outSubDirPath, conference + year + str(num) + ".txt")
             outFileHandler = open(outFilePath, "w")
             outFileHandler.write(abstract)
             outFileHandler.close()
@@ -52,12 +63,12 @@ class CVPRExtractor:
         #for  
     #def
     
-    def extractCVPR_Text(self, textDir, abstractDir, year, prefix):
+    def extractCVPR_Text(self, textDir, abstractDir, year, conference):
         
-        punctuation = [".", ",", ")", "(", "?", ":", "-"]
+        punctuation = [".", ",", ")", "(", "?", ":", "'", "\""]
         dgwList = ["eg", "et", "al", "etc"]
         
-        inFile = os.path.join(textDir, year, prefix+year+".txt")
+        inFile = os.path.join(textDir, year, conference+year+".txt")
         outSubDirPath = os.path.join(abstractDir, year)
         if not os.path.exists(outSubDirPath):
             os.mkdir(outSubDirPath)
@@ -78,7 +89,13 @@ class CVPRExtractor:
                         word = word.replace(punct, "")
                 #for
                         
-                if not word.isalpha():                #English word
+                if "-" in word:
+                    subWords = word.split("-")
+                    word = ""
+                    for subWord in subWords:
+                        word = word + " " + subWord
+                     
+                if (" " not in word) and (not word.isalpha()):                #English word
                     continue;
                 
                 for dgw in dgwList:                   #DGW
@@ -89,7 +106,7 @@ class CVPRExtractor:
                 abstract = abstract + word + " "
             #for
             
-            outFile = os.path.join(outSubDirPath, prefix+year+str(num)+".txt")
+            outFile = os.path.join(outSubDirPath, conference+year+str(num)+".txt")
             outFileHandler = open(outFile, "w")
             outFileHandler.write(abstract)
             outFileHandler.close()
@@ -97,14 +114,14 @@ class CVPRExtractor:
         #for
 #class
 
-conference = "sigir"
+conference = "cvpr"
 rootDir = r"C:\Users\dcsliub\Desktop\abstactdata" + "\\" + conference
 textDirName = "text"
 abstractDirName = "abstract"
-year = "14"
+year = "09"
 textDir = os.path.join(rootDir, textDirName)
 abstractDir = os.path.join(rootDir, abstractDirName)
-prefix = "sigir"
+conference = "cvpr"
 cvprExtractor = CVPRExtractor()
-cvprExtractor.extractCVPR_Text(textDir, abstractDir, year, prefix)
+cvprExtractor.extractCVPR(textDir, abstractDir, year, conference)
 print("Program ends")

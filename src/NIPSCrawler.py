@@ -10,7 +10,7 @@ import urllib.request
 import re
 
 class NIPSCrawler:
-    def crawlNIPS(self, url, outputDir, year, prefix):
+    def crawlNIPS(self, url, outputDir, year, conference):
         
         opener = urllib.request.urlopen(url)
         content = opener.read()
@@ -21,7 +21,7 @@ class NIPSCrawler:
         num = 0
         for paperLink in paperLinks:
             paperURL = paperLink.get('href')
-            paperURL = prefix + paperURL
+            paperURL = conference + paperURL
             
             opener = urllib.request.urlopen(paperURL)
             content = opener.read()
@@ -40,12 +40,12 @@ class NIPSCrawler:
 url = "http://papers.nips.cc/book/advances-in-neural-information-processing-systems-22-2009"
 rootDir = "..\\nips"
 year = "09"
-prefix = "http://papers.nips.cc"
+conference = "http://papers.nips.cc"
 outputDir = os.path.join(rootDir, year)
 
 if not os.path.exists(outputDir):
     os.mkdir(outputDir)
 
 nipsCrawler = NIPSCrawler()
-nipsCrawler.crawlNIPS(url, outputDir, year, prefix)
+nipsCrawler.crawlNIPS(url, outputDir, year, conference)
 print("Program ends")
