@@ -20,9 +20,14 @@ class Tester:
 #         print(words)
 #         for word in words:
 #             print(word)
-        word = "AccB-dd-Ed"
-        word = word.replace("-", "")
-        print(word)
+#         word = "AccB-dd-Ed"
+#         word = word.replace("-", "")
+#         print(word)
+        str1 = "   aa   ddd    cc   "
+        str2 = "aa"
+        print(str1.strip(" "))
+#         if str1 is str2:
+#             print(str1)
          
 tester = Tester()
 tester.test()
