@@ -22,19 +22,22 @@ class FileDuplicator:
 #class
 
 fileDuplicator = FileDuplicator()
-conference = "mm"
+conference = "icdm"
+conferenceList = ["iccv"]
 #yearList = ["14"]
-yearList = ["14", "13", "12", "11", "10", "09"]
-rootDir = r'C:\Users\dcsliub\Desktop\abstactdata' +'\\' + conference 
-
+yearList = ["13", "11", "09", "07", "05", "03"]
 abstractDir = "abstract"
 
-for year in yearList:
-    inDir = os.path.join(rootDir, abstractDir, year)
-    outDir = os.path.join(rootDir, conference)
-    if not os.path.exists(outDir):
-        os.mkdir(outDir)
+for conference in conferenceList:
+    rootDir = r'C:\Users\dcsliub\Desktop\abstactdata' +'\\' + conference 
+
+    for year in yearList:
+        inDir = os.path.join(rootDir, abstractDir, year)
+        outDir = os.path.join(rootDir, conference)
+        if not os.path.exists(outDir):
+            os.mkdir(outDir)
     
-    fileDuplicator.duplicateFile(inDir, outDir)
+        fileDuplicator.duplicateFile(inDir, outDir)
+    #for year
 #for
 print("Program ends")

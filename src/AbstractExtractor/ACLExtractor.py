@@ -7,9 +7,14 @@ Created on Apr 27, 2015
 import os
 
 class ACLExtractor:
+    
+    def __init__(self):
+    
+        self.punctuation = [".", ",", ")", "(", "?", ":", "'", "\"", ";"]
+        self.dgwList = ["eg", "et", "al", "etc"]
+    
     def extractACL(self, textDir, abstractDir, year, conference):
-        punctuation = [".", ",", ")", "(", "?", ":", "-"]
-        dgwList = ["eg", "et", "al", "etc"]
+
         
         outSubDirPath = os.path.join(abstractDir)
         if not os.path.exists(outSubDirPath):
@@ -29,19 +34,24 @@ class ACLExtractor:
                 words = line.strip("\n").strip().lower().split()
                 for word in words:
                         
-                    for punct in punctuation:
+                    for punct in self.punctuation:
                         if punct in word:
                             word = word.replace(punct, "")
                     #for
                         
-                    if not word.isalpha():                #English word
+                    if "-" in word:
+                        subWords = word.split("-")
+                        word = ""
+                        for subWord in subWords:
+                            word = word + " " + subWord
+                     
+                    if (" " not in word) and (not word.isalpha()):                #English word
                         continue;
-                    
-                    for dgw in dgwList:                   #DGW
+                            
+                    for dgw in self.dgwList:                   #DGW
                         if word == dgw:
                             word = ""
                             break;
-                    #for
                     
                     abstract = abstract + word + " "
                 #for

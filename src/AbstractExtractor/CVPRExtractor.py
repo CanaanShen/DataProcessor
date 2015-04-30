@@ -8,6 +8,10 @@ import os
 
 class CVPRExtractor:
     
+    def __init__(self):
+        self.punctuation = [".", ",", ")", "(", "?", ":", "'", "\"", ";"]
+        self.dgwList = ["eg", "et", "al", "etc"]
+    
     def extractCVPR(self, textDir, abstractDir, year, conference):
         
         punctuation = [".", ",", ")", "(", "?", ":", "'", "\""]
@@ -41,7 +45,8 @@ class CVPRExtractor:
                         subWords = word.split("-")
                         word = ""
                         for subWord in subWords:
-                            word = word + " " + subWord
+                            if subWord.isalpha():
+                                word = word + subWord + " "
                      
                     if (" " not in word) and (not word.isalpha()):                #English word
                         continue;
@@ -65,9 +70,6 @@ class CVPRExtractor:
     
     def extractCVPR_Text(self, textDir, abstractDir, year, conference):
         
-        punctuation = [".", ",", ")", "(", "?", ":", "'", "\""]
-        dgwList = ["eg", "et", "al", "etc"]
-        
         inFile = os.path.join(textDir, year, conference+year+".txt")
         outSubDirPath = os.path.join(abstractDir, year)
         if not os.path.exists(outSubDirPath):
@@ -84,7 +86,7 @@ class CVPRExtractor:
                 continue
             abstract = ""
             for word in words:
-                for punct in punctuation:
+                for punct in self.punctuation:
                     if punct in word:
                         word = word.replace(punct, "")
                 #for
@@ -93,12 +95,13 @@ class CVPRExtractor:
                     subWords = word.split("-")
                     word = ""
                     for subWord in subWords:
-                        word = word + " " + subWord
+                        if subWord.isalpha():
+                            word = word + subWord +" "
                      
                 if (" " not in word) and (not word.isalpha()):                #English word
                     continue;
                 
-                for dgw in dgwList:                   #DGW
+                for dgw in self.dgwList:                   #DGW
                     if word == dgw:
                         word = ""
                         break;
@@ -111,17 +114,18 @@ class CVPRExtractor:
             outFileHandler.write(abstract)
             outFileHandler.close()
             num = num + 1
+            print(num)
         #for
 #class
 
-conference = "cvpr"
+conference = "sigir"
 rootDir = r"C:\Users\dcsliub\Desktop\abstactdata" + "\\" + conference
 textDirName = "text"
 abstractDirName = "abstract"
-year = "09"
+year = "14"
 textDir = os.path.join(rootDir, textDirName)
 abstractDir = os.path.join(rootDir, abstractDirName)
-conference = "cvpr"
+conference = "sigir"
 cvprExtractor = CVPRExtractor()
-cvprExtractor.extractCVPR(textDir, abstractDir, year, conference)
+cvprExtractor.extractCVPR_Text(textDir, abstractDir, year, conference)
 print("Program ends")

@@ -42,7 +42,8 @@ class NIPSExtractor:
                             subWords = word.split("-")
                             word = ""
                             for subWord in subWords:
-                                word = word + " " + subWord
+                                if subWord.isalpha():
+                                    word = word + subWord + " "
                      
                         if (" " not in word) and (not word.isalpha()):                #English word
                             continue;
@@ -64,12 +65,12 @@ class NIPSExtractor:
             #for
     #def
 #class
-rootDir = "C:\\Users\\dcsliub\\Desktop\\abstactdata\\nips"
+conference = "icml"
+rootDir = r"C:\Users\dcsliub\Desktop\abstactdata" + "\\" + conference
 textDirName = "text"
 abstractDirName = "abstract"
 textDir = os.path.join(rootDir, textDirName)
 abstractDir = os.path.join(rootDir, abstractDirName)
-conference = "nips"
 nipsExtractor = NIPSExtractor()
 nipsExtractor.extractNIPS(textDir, abstractDir, conference)
 print("Program ends")
