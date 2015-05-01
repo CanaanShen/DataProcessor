@@ -10,10 +10,13 @@ from bs4 import BeautifulSoup
 
 class SDMExtractor:
     
+    def __init__(self):
+        self.punctuation = [".", ",", ")", "(", "?", ":", ";", "'", "\"", "-", "#", "$", "&", 
+                       "^", "%", "*", "@", "`", "~", "/", "<", ">", "[", "]", "|", "=", "+", "_", "!"
+                       "{", "}", "\\"]
+        self.dgwList = ["e.g.", "et al", ".etc", "iii","ii", "i.e.", "(ie)", "(ie"]
+    
     def extractSDM(self, textDir, abstractDir, year, conference):
-        
-        punctuation = [".", ",", ")", "(", "?", ":", "'", "\""]
-        dgwList = ["eg", "et", "al", "etc"]
         
         if not os.path.exists(abstractDir):
             os.mkdir(abstractDir)
@@ -40,28 +43,31 @@ class SDMExtractor:
                     words = text.strip().lower().split()
                     newText = ""
                     for word in words:
-                        for punct in punctuation:
-                            if punct in word:
-                                word = word.replace(punct, "")
-                        #for
-                        if "-" in word:
-                            subWords = word.split("-")
-                            word = ""
-                            for subWord in subWords:
-                                word = word + " " + subWord
-                     
-                        if (" " not in word) and (not word.isalpha()):                #English word
-                            continue;
-                            
-                        for dgw in dgwList:                   #DGW
-                            if word == dgw:
-                                word = ""
+                        for dgw in self.dgwList:                   #DGW
+                            if dgw in word or dgw == word:
+                                word = word.replace(dgw, " ")
                                 break;
+                        #for dgw
+                    
+                        for punct in self.punctuation:
+                            if punct in word:
+                                word = word.replace(punct, " ")
+                        #for punct
+                        
+                        blankWords = word.split()
+                        word = ""
+                        for blankWord in blankWords:
+                            if blankWord != "k" and len(blankWord) == 1:
+                                blankWord = ""
+                            
+                            if blankWord.isalpha():                #English word
+                                word = word + blankWord + " "
+                        #for blankWord
                             
                         newText = newText + word + " ";
-                    #for
+                    #for word
                     abstract = abstract + newText + " "
-                #for
+                #for p
                 try:
                     file = os.path.join(abstractDir, conference + year + str(num) + ".txt")
                     fileHandler = open(file, "w")
@@ -79,10 +85,8 @@ class SDMExtractor:
 
 acmExtractor = SDMExtractor()
 conference = "sdm"
-# year = "13"
-yearList = [ "11", "10", "09"]
-#yearList = ["14"]
-rootDir = r'C:\Users\dcsliub\Desktop\abstactdata' +'\\' + conference 
+yearList = ["14", "13", "12", "11", "10", "09"]
+rootDir = r'C:\Users\dcsliub\Desktop\HierarchyData\abstactdata' +'\\' + conference 
 
 textDirName = "text"
 abstractDirName = "abstract"

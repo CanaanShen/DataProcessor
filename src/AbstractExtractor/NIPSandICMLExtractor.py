@@ -5,13 +5,15 @@ Created on Apr 26, 2015
 '''
 import os
 
-class NIPSExtractor:
+class NIPSandICMLExtractor:
     
     def __init__(self):
-        self.punctuation = [".", ",", ")", "(", "?", ":", "'", "\"", ";"]
-        self.dgwList = ["eg", "et", "al", "etc"]
+        self.punctuation = [".", ",", ")", "(", "?", ":", ";", "'", "\"", "-", "#", "$", "&", 
+                       "^", "%", "*", "@", "`", "~", "/", "<", ">", "[", "]", "|", "=", "+", "_", "!"
+                       "{", "}", "\\"]
+        self.dgwList = ["e.g.", "et al", ".etc", "iii","ii", "i.e.", "(ie)", "(ie"]
         
-    def extractNIPS(self, textDir, abstractDir, conference):
+    def extractNIPSandICML(self, textDir, abstractDir, conference):
                 
         for subDir in os.listdir(textDir):
             subDirPath = os.path.join(textDir, subDir)
@@ -33,25 +35,26 @@ class NIPSExtractor:
                     words = line.strip("\n").strip().lower().split()
                     
                     for word in words:
+                        for dgw in self.dgwList:                   #DGW
+                            if dgw in word or dgw == word:
+                                word = word.replace(dgw, " ")
+                                break;
+                        #for dgw
+                    
                         for punct in self.punctuation:
                             if punct in word:
-                                word = word.replace(punct, "")
-                        #for
+                                word = word.replace(punct, " ")
+                        #for punct
                         
-                        if "-" in word:
-                            subWords = word.split("-")
-                            word = ""
-                            for subWord in subWords:
-                                if subWord.isalpha():
-                                    word = word + subWord + " "
-                     
-                        if (" " not in word) and (not word.isalpha()):                #English word
-                            continue;
+                        blankWords = word.split()
+                        word = ""
+                        for blankWord in blankWords:
+                            if blankWord != "k" and len(blankWord) == 1:
+                                blankWord = ""
                             
-                        for dgw in self.dgwList:                   #DGW
-                            if word == dgw:
-                                word = ""
-                                break;
+                            if blankWord.isalpha():                #English word
+                                word = word + blankWord + " "
+                        #for blankWord
                         
                         abstract = abstract + word + " "
                     #for word
@@ -62,15 +65,15 @@ class NIPSExtractor:
                 outFileHandler.close()
                 print(num)
                 num = num + 1
-            #for
+            #for eachFile
     #def
 #class
-conference = "icml"
-rootDir = r"C:\Users\dcsliub\Desktop\abstactdata" + "\\" + conference
+conference = "nips"
+rootDir = r"C:\Users\dcsliub\Desktop\HierarchyData\abstactdata" + "\\" + conference
 textDirName = "text"
 abstractDirName = "abstract"
 textDir = os.path.join(rootDir, textDirName)
 abstractDir = os.path.join(rootDir, abstractDirName)
-nipsExtractor = NIPSExtractor()
-nipsExtractor.extractNIPS(textDir, abstractDir, conference)
+nipsExtractor = NIPSandICMLExtractor()
+nipsExtractor.extractNIPSandICML(textDir, abstractDir, conference)
 print("Program ends")

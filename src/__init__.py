@@ -33,9 +33,23 @@ class Tester:
 #         print(str1.strip(" "))
 #         if str1 is str2:
 #             print(str1)
-        num = 291
-        num1 = num/2
-        print(num1)
+#         num = 291
+#         num1 = num/2
+#         print(num1)
+#         str = " aaaa    "
+#         results = str.split()
+#         print(results)
+#         for result in results:
+#             print(result)
+        word = "aaa"
+        if "aaa" in word:
+            print(word)
+#         blankWords = word.split()
+#         word = ""
+#         for blankWord in blankWords:
+#             if blankWord.isalpha():                #English word
+#                 word = word + blankWord + " "
+#         print(word)
          
 tester = Tester()
 tester.test()

@@ -11,8 +11,10 @@ import re
 class IEEEExtractor:
     
     def __init__(self):
-        self.punctuation = [".", ",", ")", "(", "?", ":", "'", "\"", ";"]
-        self.dgwList = ["eg", "et", "al", "etc"]
+        self.punctuation = [".", ",", ")", "(", "?", ":", ";", "'", "\"", "-", "#", "$", "&", 
+                       "^", "%", "*", "@", "`", "~", "/", "<", ">", "[", "]", "|", "=", "+", "_", "!"
+                       "{", "}", "\\"]
+        self.dgwList = ["e.g.", "et al", ".etc", "iii","ii", "i.e.", "(ie)", "(ie"]
     
     def extractFromIEEE(self, textDir, abstractDir, conference, year):
         
@@ -42,25 +44,26 @@ class IEEEExtractor:
             words = pText.strip().lower().split()
             abstract = ""
             for word in words:
+                for dgw in self.dgwList:                   #DGW
+                    if dgw in word or dgw == word:
+                        word = word.replace(dgw, " ")
+                        break;
+                #for dgw
+                    
                 for punct in self.punctuation:
                     if punct in word:
-                        word = word.replace(punct, "")
-                #for
-                         
-                if "-" in word:
-                    subWords = word.split("-")
-                    word = ""
-                    for subWord in subWords:
-                        if subWord.isalpha():
-                            word = word + subWord + " "
-                     
-                if (" " not in word) and (not word.isalpha()):                #English word
-                    continue;
-                             
-                for dgw in self.dgwList:                   #DGW
-                    if word == dgw:
-                        word = ""
-                        break;
+                        word = word.replace(punct, " ")
+                #for punct
+                        
+                blankWords = word.split()
+                word = ""
+                for blankWord in blankWords:
+                    if blankWord != "k" and len(blankWord) == 1:
+                        blankWord = ""
+                            
+                    if blankWord.isalpha():                #English word
+                        word = word + blankWord + " "
+                #for blankWord
                              
                 abstract = abstract + word + " ";
             #for word
@@ -75,16 +78,16 @@ class IEEEExtractor:
     #def
 #class
 
-conference = "iccv"
-rootDir = r"C:\Users\dcsliub\Desktop\abstactdata" + "\\" + conference
+conference = "icdm"
+rootDir = r"C:\Users\dcsliub\Desktop\HierarchyData\abstactdata" + "\\" + conference
 textDirName = "text"
 abstractDirName = "abstract"
-yearList = ["13", "11", "09", "07", "05", "03"]
+yearList = ["13", "12", "11", "10", "09"]
+ieeeExtractor = IEEEExtractor()
 
 for year in yearList:
     textDir = os.path.join(rootDir, textDirName, year)
     abstractDir = os.path.join(rootDir, abstractDirName, year)
-
-    ieeeExtractor = IEEEExtractor()
+    print(textDir)
     ieeeExtractor.extractFromIEEE(textDir, abstractDir, conference, year)
 print("Program ends")

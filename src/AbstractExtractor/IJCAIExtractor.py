@@ -13,8 +13,10 @@ import os
 class IJCAIExtractor:
     
     def __init__(self):
-        self.punctuation = [".", ",", ")", "(", "?", ":", "'", "\""]
-        self.dgwList = ["eg", "et", "al", "etc"]
+        self.punctuation = [".", ",", ")", "(", "?", ":", ";", "'", "\"", "-", "#", "$", "&", 
+                       "^", "%", "*", "@", "`", "~", "/", "<", ">", "[", "]", "|", "=", "+", "_", "!"
+                       "{", "}", "\\"]
+        self.dgwList = ["e.g.", "et al", ".etc", "iii","ii", "i.e.", "(ie)", "(ie"]
     
     def extractIJCAI(self, textDir, abstractDir, year, conference):
                 
@@ -36,25 +38,26 @@ class IJCAIExtractor:
             for line in content:
                 words = line.strip("\n").strip().lower().split()
                 for word in words:
-                        
+                    for dgw in self.dgwList:                   #DGW
+                        if dgw in word or dgw == word:
+                            word = word.replace(dgw, " ")
+                            break;
+                    #for dgw
+                    
                     for punct in self.punctuation:
                         if punct in word:
-                            word = word.replace(punct, "")
-                    #for
+                            word = word.replace(punct, " ")
+                    #for punct
                         
-                    if "-" in word:
-                        subWords = word.split("-")
-                        word = ""
-                        for subWord in subWords:
-                            word = word + " " + subWord
-                     
-                    if (" " not in word) and (not word.isalpha()):                #English word
-                        continue;
+                    blankWords = word.split()
+                    word = ""
+                    for blankWord in blankWords:
+                        if blankWord != "k" and len(blankWord) == 1:
+                            blankWord = ""
                             
-                    for dgw in self.dgwList:                   #DGW
-                        if word == dgw:
-                            word = ""
-                            break;
+                        if blankWord.isalpha():                #English word
+                            word = word + blankWord + " "
+                    #for blankWord
                         
                     abstract = abstract + word + " "
                 #for word
@@ -65,13 +68,11 @@ class IJCAIExtractor:
             outFileHandler.close()
             print(num)
             num = num + 1
-        #for  
+        #for eachFile
     #def
     
     def extractIJCAI_Text(self, textDir, abstractDir, year, conference):
-        
 
-        
         inFile = os.path.join(textDir, year, conference+year+".txt")
         outSubDirPath = os.path.join(abstractDir, year)
         if not os.path.exists(outSubDirPath):
@@ -88,25 +89,27 @@ class IJCAIExtractor:
             
             abstract = ""
             for word in words:
+                for dgw in self.dgwList:                   #DGW
+                    if dgw in word or dgw == word:
+                        word = word.replace(dgw, " ")
+                        break;
+                #for dgw
+                    
                 for punct in self.punctuation:
                     if punct in word:
-                        word = word.replace(punct, "")
-                #for
+                        word = word.replace(punct, " ")
+                #for punct
                         
-                if "-" in word:
-                    subWords = word.split("-")
-                    word = ""
-                    for subWord in subWords:
-                        word = word + " " + subWord
-                     
-                if (" " not in word) and (not word.isalpha()):                #English word
-                    continue;
+                blankWords = word.split()
+                word = ""
+                for blankWord in blankWords:
+                    if blankWord != "k" and len(blankWord) == 1:
+                        blankWord = ""
                             
-                for dgw in self.dgwList:                   #DGW
-                    if word == dgw:
-                        word = ""
-                        break;
-                        
+                    if blankWord.isalpha():                #English word
+                        word = word + blankWord + " "
+                #for blankWord
+
                 abstract = abstract + word + " "
             #for word
             
@@ -116,16 +119,22 @@ class IJCAIExtractor:
             outFileHandler.close()
             num = num + 1
             print(num)
-        #for
+        #for line
 #class
 
-rootDir = "C:\\Users\\dcsliub\\Desktop\\abstactdata\\ijcai"
+conference = "ijcai"
+rootDir = r"C:\Users\dcsliub\Desktop\HierarchyData\abstactdata" + "\\" + conference
 textDirName = "text"
 abstractDirName = "abstract"
-year = "13"
+yearList = ["13", "11", "09", "07", "05", "03"]
 textDir = os.path.join(rootDir, textDirName)
 abstractDir = os.path.join(rootDir, abstractDirName)
-conference = "ijcai"
 ijcaiExtractor = IJCAIExtractor()
-ijcaiExtractor.extractIJCAI(textDir, abstractDir, year, conference)
+
+for year in yearList:
+    if year == "13" or year == "11" or year == "09" or year == "07":
+        ijcaiExtractor.extractIJCAI(textDir, abstractDir, year, conference)
+    else:
+        ijcaiExtractor.extractIJCAI_Text(textDir, abstractDir, year, conference)
+#for
 print("Program ends")

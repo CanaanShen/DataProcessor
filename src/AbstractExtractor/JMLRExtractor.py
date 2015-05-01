@@ -9,8 +9,10 @@ import os
 class JMLRExtractor:
     
     def __init__(self):
-        self.punctuation = [".", ",", ")", "(", "?", ":", "'", "\"", ";"]
-        self.dgwList = ["eg", "et", "al", "etc"]
+        self.punctuation = [".", ",", ")", "(", "?", ":", ";", "'", "\"", "-", "#", "$", "&", 
+                       "^", "%", "*", "@", "`", "~", "/", "<", ">", "[", "]", "|", "=", "+", "_", "!"
+                       "{", "}", "\\"]
+        self.dgwList = ["e.g.", "et al", ".etc", "iii","ii", "i.e.", "(ie)", "(ie"]
         
     def extractJMLR(self, textDir, abstractDir, conference):
         
@@ -33,46 +35,46 @@ class JMLRExtractor:
                 for line in content:
                     words = line.strip("\n").strip().lower().split()
                     for word in words:
-                        
+                        for dgw in self.dgwList:                   #DGW
+                            if dgw in word or dgw == word:
+                                word = word.replace(dgw, " ")
+                                break;
+                        #for dgw
+                    
                         for punct in self.punctuation:
                             if punct in word:
-                                word = word.replace(punct, "")
-                        #for
+                                word = word.replace(punct, " ")
+                        #for punct
                         
-                        if "-" in word:
-                            subWords = word.split("-")
-                            word = ""
-                            for subWord in subWords:
-                                word = word + " " + subWord
-                     
-                        if (" " not in word) and (not word.isalpha()):                #English word
-                            continue;
+                        blankWords = word.split()
+                        word = ""
+                        for blankWord in blankWords:
+                            if blankWord != "k" and len(blankWord) == 1:
+                                blankWord = ""
                             
-                        for dgw in self.dgwList:                   #DGW
-                            if word == dgw:
-                                word = ""
-                                break;
+                            if blankWord.isalpha():                #English word
+                                word = word + blankWord + " "
+                        #for blankWord
                         
                         abstract = abstract + word + " "
-                    #for
-                #for
+                    #for word
+                #for line
                 outFilePath = os.path.join(outSubDirPath, conference + subDir + str(num) + ".txt")
                 outFileHandler = open(outFilePath, "w")
                 outFileHandler.write(abstract)
                 outFileHandler.close()
                 print(num)
                 num = num + 1
-            #for
+            #for eachFile
     #def
 #class
 
 conference = "jmlr"
-rootDir = "C:\\Users\\dcsliub\\Desktop\\abstactdata\\" + conference
+rootDir = r"C:\Users\dcsliub\Desktop\HierarchyData\abstactdata" + "\\" + conference
 textDirName = "text"
 abstractDirName = "abstract"
 textDir = os.path.join(rootDir, textDirName)
 abstractDir = os.path.join(rootDir, abstractDirName)
-conference = "jmlr"
 jmlrExtractor = JMLRExtractor()
 jmlrExtractor.extractJMLR(textDir, abstractDir, conference)
 print("Program ends")

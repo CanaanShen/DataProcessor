@@ -4,7 +4,6 @@ Created on Apr 28, 2015
 @author: dcsliub
 '''
 import os
-import shutil
 
 class FileDuplicator:
     def duplicateFile(self, inDir, outDir):
@@ -14,7 +13,19 @@ class FileDuplicator:
             outFile = os.path.join(outDir, file)
             statInfo = os.stat(inFile)
             if not statInfo.st_size == 0:
-                shutil.copyfile(inFile, outFile)
+                inFileHandler = open(inFile, "r")
+                lines = inFileHandler.readlines()
+                
+                newLine = ""
+                for line in lines:
+                    words = line.strip("\n").strip().split()
+                    for word in words:
+                        newLine = newLine + word + " "
+                #for line
+                outFileHandler = open(outFile, "w")
+                outFileHandler.write(newLine)
+                outFileHandler.close()
+                inFileHandler.close()
             else:
                 print(inFile)
         
@@ -22,22 +33,22 @@ class FileDuplicator:
 #class
 
 fileDuplicator = FileDuplicator()
-conference = "icdm"
-conferenceList = ["iccv"]
-#yearList = ["14"]
-yearList = ["13", "11", "09", "07", "05", "03"]
 abstractDir = "abstract"
 
-for conference in conferenceList:
-    rootDir = r'C:\Users\dcsliub\Desktop\abstactdata' +'\\' + conference 
+rootDir = r'C:\Users\dcsliub\Desktop\HierarchyData\abstactdata' 
 
-    for year in yearList:
-        inDir = os.path.join(rootDir, abstractDir, year)
-        outDir = os.path.join(rootDir, conference)
-        if not os.path.exists(outDir):
-            os.mkdir(outDir)
+for conference in os.listdir(rootDir):
     
-        fileDuplicator.duplicateFile(inDir, outDir)
+    conferenceDir = os.path.join(rootDir, conference)
+    
+    inDir = os.path.join(conferenceDir, abstractDir)
+    outDir = os.path.join(conferenceDir, conference)
+    if not os.path.exists(outDir):
+        os.mkdir(outDir)
+    for subDir in os.listdir(inDir):
+        subDirPath = os.path.join(inDir, subDir)
+        print(subDirPath)
+        fileDuplicator.duplicateFile(subDirPath, outDir)
     #for year
-#for
+#for conference
 print("Program ends")

@@ -10,8 +10,10 @@ class ACLExtractor:
     
     def __init__(self):
     
-        self.punctuation = [".", ",", ")", "(", "?", ":", "'", "\"", ";"]
-        self.dgwList = ["eg", "et", "al", "etc"]
+        self.punctuation = [".", ",", ")", "(", "?", ":", ";", "'", "\"", "-", "#", "$", "&", 
+                       "^", "%", "*", "@", "`", "~", "/", "<", ">", "[", "]", "|", "=", "+", "_", "!"
+                       "{", "}", "\\"]
+        self.dgwList = ["e.g.", "et al", ".etc", "iii","ii", "i.e.", "(ie)", "(ie"]
     
     def extractACL(self, textDir, abstractDir, year, conference):
 
@@ -34,41 +36,43 @@ class ACLExtractor:
                 words = line.strip("\n").strip().lower().split()
                 for word in words:
                         
+                    for dgw in self.dgwList:                   #DGW
+                        if dgw in word or dgw == word:
+                            word = word.replace(dgw, " ")
+                            break;
+                    #for
+                    
                     for punct in self.punctuation:
                         if punct in word:
-                            word = word.replace(punct, "")
+                            word = word.replace(punct, " ")
                     #for
                         
-                    if "-" in word:
-                        subWords = word.split("-")
-                        word = ""
-                        for subWord in subWords:
-                            word = word + " " + subWord
-                     
-                    if (" " not in word) and (not word.isalpha()):                #English word
-                        continue;
+                    blankWords = word.split()
+                    word = ""
+                    for blankWord in blankWords:
+                        if blankWord != "k" and len(blankWord) == 1:
+                            blankWord = ""
                             
-                    for dgw in self.dgwList:                   #DGW
-                        if word == dgw:
-                            word = ""
-                            break;
+                        if blankWord.isalpha():                #English word
+                            word = word + blankWord + " "
+                    #for
                     
                     abstract = abstract + word + " "
-                #for
-            #for
+                #for word
+            #for line
             outFilePath = os.path.join(outSubDirPath, conference + year + str(num) + ".txt")
             outFileHandler = open(outFilePath, "w")
             outFileHandler.write(abstract)
             outFileHandler.close()
             print(num)
             num = num + 1
-        #for
+        #for 
     #def
 #class
 
 conference = "acl"
 year  = "13"
-rootDir = r"C:\Users\dcsliub\Desktop\abstactdata" + "\\" + conference
+rootDir = r"C:\Users\dcsliub\Desktop\HierarchyData\abstactdata" + "\\" + conference
 textDirName = "text"
 abstractDirName = "abstract"
 textDir = os.path.join(rootDir, textDirName, year)
