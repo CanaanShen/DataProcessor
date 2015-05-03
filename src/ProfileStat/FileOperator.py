@@ -17,6 +17,14 @@ def copyFile(file, sourceDir, targetDir):
     #targetFile = os.path.join(targetDir, file)
     shutil.copy(sourceFile, targetDir)
 
+def copyFiles(prefix, suffixList, sourceDir, targetDir):
+    for suffix in suffixList:
+        file = os.path.join(sourceDir, prefix + suffix)
+        if os.path.exists(file):
+            shutil.copy(file, targetDir)
+        else:
+            print(file, "does not exist")
+    #for
 
 if __name__ == "__main__":
     
@@ -26,10 +34,11 @@ if __name__ == "__main__":
 #         subDirPath = os.path.join(rootDir, conference)
 #         removeFileBasedonFormat(subDirPath, conference, suffixList)
     
-    suffix = ".mallet"
-    sourceDir = r"C:\Users\dcsliub\Desktop\HierarchyData\abstactdata"
-    targetDir = r"C:\Users\Yueshen\workspace_luna\Mallet\file\input\Conference"
-    for conference in os.listdir(sourceDir):
-        sourceSubDir = os.path.join(sourceDir, conference)
-        copyFile(conference+suffix, sourceSubDir, targetDir)
+    suffixList = [".vocab", ".docfreqy"]
+    sourceRootDir = r"C:\Users\dcsliub\Desktop\HierarchyData\abstactdata"
+    targetRootDir = r"C:\Users\Yueshen\workspace_luna\Mallet\file\input\Conference"
+    for conference in os.listdir(sourceRootDir):
+        sourceDir = os.path.join(sourceRootDir, conference)
+        targetDir = os.path.join(targetRootDir, conference)
+        copyFiles(conference, suffixList, sourceDir, targetDir)
     print("Program ends")
