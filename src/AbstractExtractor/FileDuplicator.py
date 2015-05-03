@@ -6,28 +6,33 @@ Created on Apr 28, 2015
 import os
 
 class FileDuplicator:
-    def duplicateFile(self, inDir, outDir):
+    def duplicateFile(self, inDirPath, outDirPath):
         
-        for file in os.listdir(inDir):
-            inFile = os.path.join(inDir, file)
-            outFile = os.path.join(outDir, file)
-            statInfo = os.stat(inFile)
-            if not statInfo.st_size == 0:
-                inFileHandler = open(inFile, "r")
-                lines = inFileHandler.readlines()
+        num = 0
+        for subDir in os.listdir(inDirPath):
+            subDirPath = os.path.join(inDirPath, subDir)
+            
+            for file in os.listdir(subDirPath):
+                inFile = os.path.join(subDirPath, file)
+                outFile = os.path.join(outDirPath, str(num) + ".txt")
+                statInfo = os.stat(inFile)
+                if not statInfo.st_size == 0:
+                    inFileHandler = open(inFile, "r")
+                    lines = inFileHandler.readlines()
                 
-                newLine = ""
-                for line in lines:
-                    words = line.strip("\n").strip().split()
-                    for word in words:
-                        newLine = newLine + word + " "
-                #for line
-                outFileHandler = open(outFile, "w")
-                outFileHandler.write(newLine)
-                outFileHandler.close()
-                inFileHandler.close()
-            else:
-                print(inFile)
+                    newLine = ""
+                    for line in lines:
+                        words = line.strip("\n").strip().split()
+                        for word in words:
+                            newLine = newLine + word + " "
+                    #for line
+                    outFileHandler = open(outFile, "w")
+                    outFileHandler.write(newLine)
+                    outFileHandler.close()
+                    inFileHandler.close()
+                    num = num + 1
+                else:
+                    print(inFile)
         
     #def
 #class
@@ -41,14 +46,14 @@ for conference in os.listdir(rootDir):
     
     conferenceDir = os.path.join(rootDir, conference)
     
-    inDir = os.path.join(conferenceDir, abstractDir)
-    outDir = os.path.join(conferenceDir, conference)
-    if not os.path.exists(outDir):
-        os.mkdir(outDir)
-    for subDir in os.listdir(inDir):
-        subDirPath = os.path.join(inDir, subDir)
-        print(subDirPath)
-        fileDuplicator.duplicateFile(subDirPath, outDir)
+    inDirPath = os.path.join(conferenceDir, abstractDir)
+    outDirPath = os.path.join(conferenceDir, conference)
+    print(outDirPath)
+    if os.path.exists(outDirPath):
+        for file in os.listdir(outDirPath):
+            os.remove(os.path.join(outDirPath, file))
+
+    fileDuplicator.duplicateFile(inDirPath, outDirPath)
     #for year
 #for conference
 print("Program ends")

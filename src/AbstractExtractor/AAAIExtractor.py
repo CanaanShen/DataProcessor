@@ -19,6 +19,7 @@ class AAAIExtractor:
         for subDir in os.listdir(textDir):
             subDirPath = os.path.join(textDir, subDir)
             outSubDirPath = os.path.join(abstractDir, subDir)
+            print(outSubDirPath)
             if not os.path.exists(outSubDirPath):
                 os.mkdir(outSubDirPath)
             
@@ -51,7 +52,7 @@ class AAAIExtractor:
                         word = ""
                         for blankWord in blankWords:
                             
-                            if blankWord != "k" and len(blankWord) == 1:
+                            if blankWord != "k" and blankWord != "a" and blankWord != "x" and len(blankWord) == 1:
                                 blankWord = ""
                             
                             if blankWord.isalpha():                #English word
@@ -69,9 +70,6 @@ class AAAIExtractor:
 #                 print(num)
                 num = num + 1
             #for eachFile
-                        
-            
-        
     #def
 #class
 rootDir = r"C:\Users\dcsliub\Desktop\HierarchyData\abstactdata\aaai"

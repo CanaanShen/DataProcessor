@@ -41,15 +41,41 @@ class Tester:
 #         print(results)
 #         for result in results:
 #             print(result)
-        word = "aaa"
-        if "aaa" in word:
-            print(word)
+#         word = "aaa"
+#         if "aaa" in word:
+#             print(word)
 #         blankWords = word.split()
 #         word = ""
 #         for blankWord in blankWords:
 #             if blankWord.isalpha():                #English word
 #                 word = word + blankWord + " "
 #         print(word)
+#         map = {}
+#         map["aa"] = 1
+#         map["bb"] = 2
+#         if "bb" in map:
+#             print(map["bb"])
+#         str = "aa bb cc"
+#         if "a" in str:
+#             print(str)
+        docFreqMap = {}
+        docFreqMap["aa"] = 3
+        docFreqMap["cc"] = 1
+        docFreqMap["nn"] = 10
+        docFreqMap["ll"] = 8
+        print(docFreqMap.pop("cc"))
+        print(docFreqMap)
+#         
+#         for (key, value) in docFreqMap.items():
+#             print(key, value)
+#         
+#         sortedList = sorted(docFreqMap.items(), key=lambda d:d[1], reverse = True)
+#         print(sortedList[2])
+#         str = "1828.txt";
+#         print(str.replace(".txt", ""))
+#         for tuple in sortedList:
+#             print(tuple[0])
+    #def 
          
 tester = Tester()
 tester.test()

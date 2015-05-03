@@ -52,7 +52,7 @@ class IJCAIExtractor:
                     blankWords = word.split()
                     word = ""
                     for blankWord in blankWords:
-                        if blankWord != "k" and len(blankWord) == 1:
+                        if blankWord != "k" and blankWord != "a" and blankWord!= "x" and len(blankWord) == 1:
                             blankWord = ""
                             
                         if blankWord.isalpha():                #English word
@@ -103,7 +103,7 @@ class IJCAIExtractor:
                 blankWords = word.split()
                 word = ""
                 for blankWord in blankWords:
-                    if blankWord != "k" and len(blankWord) == 1:
+                    if blankWord != "k" and blankWord != "a" and blankWord!= "x" and len(blankWord) == 1:
                         blankWord = ""
                             
                     if blankWord.isalpha():                #English word

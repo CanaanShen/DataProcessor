@@ -48,7 +48,7 @@ class CVPRExtractor:
                     blankWords = word.split()
                     word = ""
                     for blankWord in blankWords:
-                        if blankWord != "k" and len(blankWord) == 1:
+                        if blankWord != "k" and blankWord != "a" and blankWord!= "x" and len(blankWord) == 1:
                             blankWord = ""
                             
                         if blankWord.isalpha():                #English word
@@ -99,7 +99,7 @@ class CVPRExtractor:
                 blankWords = word.split()
                 word = ""
                 for blankWord in blankWords:
-                    if blankWord != "k" and len(blankWord) == 1:
+                    if blankWord != "k" and blankWord != "a" and blankWord!= "x" and len(blankWord) == 1:
                         blankWord = ""
                             
                     if blankWord.isalpha():                #English word
@@ -124,6 +124,7 @@ rootDir = r"C:\Users\dcsliub\Desktop\HierarchyData\abstactdata" + "\\" + confere
 textDirName = "text"
 abstractDirName = "abstract"
 yearList = ["14"]
+# yearList = ["14", "13", "12", "11", "10", "09"]
 textDir = os.path.join(rootDir, textDirName)
 abstractDir = os.path.join(rootDir, abstractDirName)
 cvprExtractor = CVPRExtractor()

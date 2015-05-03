@@ -50,7 +50,7 @@ class ACLExtractor:
                     blankWords = word.split()
                     word = ""
                     for blankWord in blankWords:
-                        if blankWord != "k" and len(blankWord) == 1:
+                        if blankWord != "k" and blankWord != "a" and blankWord != "x" and len(blankWord) == 1:
                             blankWord = ""
                             
                         if blankWord.isalpha():                #English word
@@ -71,13 +71,15 @@ class ACLExtractor:
 #class
 
 conference = "acl"
-year  = "13"
+yearList = ["14", "13"]
 rootDir = r"C:\Users\dcsliub\Desktop\HierarchyData\abstactdata" + "\\" + conference
 textDirName = "text"
 abstractDirName = "abstract"
-textDir = os.path.join(rootDir, textDirName, year)
-abstractDir = os.path.join(rootDir, abstractDirName, year)
-conference = "acl"
 aclExtractor = ACLExtractor()
-aclExtractor.extractACL(textDir, abstractDir, year, conference)
+
+for year in yearList:
+    textDir = os.path.join(rootDir, textDirName, year)
+    abstractDir = os.path.join(rootDir, abstractDirName, year)
+    aclExtractor.extractACL(textDir, abstractDir, year, conference)
+#for year
 print("Program ends")

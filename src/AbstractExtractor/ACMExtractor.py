@@ -38,7 +38,7 @@ class ACMExtractor:
 #                 if len(pList) > 1:
 #                     print(pList[0].text)
                 
-                if conference != "vldb" and conference != "wsdm" and num > (divLen/2 - 8):   #workshop or address
+                if conference != "vldb" and conference != "wsdm" and num > (divLen/2 - 10):   #workshop or address
                     break;
                 
                 if conference == "wsdm" and num > (divLen/2- 3):
@@ -76,7 +76,7 @@ class ACMExtractor:
                             blankWords = word.split()
                             word = ""
                             for blankWord in blankWords:
-                                if blankWord != "k" and len(blankWord) == 1:
+                                if blankWord != "k" and blankWord != "a" and blankWord!= "x" and len(blankWord) == 1:
                                     blankWord = ""
                             
                                 if blankWord.isalpha():                #English word
@@ -153,7 +153,7 @@ class ACMExtractor:
                     blankWords = word.split()
                     word = ""
                     for blankWord in blankWords:
-                        if blankWord != "k" and len(blankWord) == 1:
+                        if blankWord != "k" and blankWord != "a" and blankWord!= "x" and len(blankWord) == 1:
                             blankWord = ""
                             
                         if blankWord.isalpha():                #English word
@@ -180,6 +180,7 @@ class ACMExtractor:
 
 acmExtractor = ACMExtractor()
 conference = "www"
+# yearList = ["13", "11"]
 yearList = ["14", "13", "12", "11", "10", "09"]
 rootDir = r'C:\Users\dcsliub\Desktop\HierarchyData\abstactdata' +'\\' + conference 
 

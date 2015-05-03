@@ -48,7 +48,7 @@ class ICDMExtractor:
                     blankWords = word.split()
                     word = ""
                     for blankWord in blankWords:
-                        if blankWord != "k" and len(blankWord) == 1:
+                        if blankWord != "k" and blankWord != "a" and blankWord!= "x" and len(blankWord) == 1:
                             blankWord = ""
                             
                         if blankWord.isalpha():                #English word
@@ -65,59 +65,6 @@ class ICDMExtractor:
             print(num)
             num = num + 1
         #for eachFile
-    #def
-    
-    def extractFromIEEE(self, textDir, abstractDir, conference, year):
-        
-        if not os.path.exists(abstractDir):
-            os.mkdir(abstractDir)
-        
-        num= 0
-        for file in os.listdir(textDir):
-            filePath = os.path.join(textDir, file)
-            regular = re.compile(r"icp.jsp_arnumber=\d+_page=2.html")
-            if not regular.match(file):
-                continue
-            
-            content = open(filePath, "r").read()
- 
-            soup = BeautifulSoup(content)
-            div = soup.find('div', attrs={'class':'text'})
-            pText = div.find('p').text
- 
-            words = pText.strip().lower().split()
-            abstract = ""
-            for word in words:
-                for punct in self.punctuation:
-                    if punct in word:
-                        word = word.replace(punct, "")
-                #for
-                         
-                if "-" in word:
-                    subWords = word.split("-")
-                    word = ""
-                    for subWord in subWords:
-                        if subWord.isalpha():
-                            word = word + subWord + " "
-                     
-                if (" " not in word) and (not word.isalpha()):                #English word
-                    continue;
-                             
-                for dgw in self.dgwList:                   #DGW
-                    if word == dgw:
-                        word = ""
-                        break;
-                             
-                abstract = abstract + word + " ";
-            #for
-                                 
-            file = os.path.join(abstractDir, conference + year + str(num) + ".txt")
-            fileHandler = open(file, "w")
-            fileHandler.write(abstract)
-            fileHandler.close()
-            print(num)
-            num = num + 1
-        #for
     #def
 #class
 

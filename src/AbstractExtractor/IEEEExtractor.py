@@ -58,7 +58,7 @@ class IEEEExtractor:
                 blankWords = word.split()
                 word = ""
                 for blankWord in blankWords:
-                    if blankWord != "k" and len(blankWord) == 1:
+                    if blankWord != "k" and blankWord != "a" and blankWord!= "x" and len(blankWord) == 1:
                         blankWord = ""
                             
                     if blankWord.isalpha():                #English word
@@ -82,7 +82,8 @@ conference = "icdm"
 rootDir = r"C:\Users\dcsliub\Desktop\HierarchyData\abstactdata" + "\\" + conference
 textDirName = "text"
 abstractDirName = "abstract"
-yearList = ["13", "12", "11", "10", "09"]
+yearList = ["13", "11", "12", "10", "09"]
+# yearList = ["14", "12", "10", "09"]
 ieeeExtractor = IEEEExtractor()
 
 for year in yearList:
