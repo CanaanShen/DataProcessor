@@ -34,11 +34,12 @@ if __name__ == "__main__":
 #         subDirPath = os.path.join(rootDir, conference)
 #         removeFileBasedonFormat(subDirPath, conference, suffixList)
     
-    suffixList = [".vocab", ".docfreqy"]
-    sourceRootDir = r"C:\Users\dcsliub\Desktop\HierarchyData\abstactdata"
-    targetRootDir = r"C:\Users\Yueshen\workspace_luna\Mallet\file\input\Conference"
+    suffixList = [".tree"]
+    sourceRootDir = r"C:\Users\dcsliub\Desktop\Conference"
+    targetRootDir = r"C:\Users\Yueshen\workspace_luna\Mallet\file\output\Conference"
     for conference in os.listdir(sourceRootDir):
         sourceDir = os.path.join(sourceRootDir, conference)
         targetDir = os.path.join(targetRootDir, conference)
-        copyFiles(conference, suffixList, sourceDir, targetDir)
+        prefix = conference + "_10000_3"
+        copyFiles(prefix, suffixList, sourceDir, targetDir)
     print("Program ends")
