@@ -7,7 +7,6 @@ Created on Apr 29, 2015
 import urllib.request
 import os
 from bs4 import BeautifulSoup
-from _ast import Str
 
 class ICMLCrawler:
     def Crawl14and13(self, url, conference, year, outputDir, prefix):

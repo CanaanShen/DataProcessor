@@ -6,6 +6,7 @@ Created on Apr 28, 2015
 import os
 
 class FileDuplicator:
+    
     def duplicateFile(self, inDirPath, outDirPath):
         
         num = 0
@@ -41,6 +42,8 @@ fileDuplicator = FileDuplicator()
 abstractDir = "abstract"
 
 rootDir = r'C:\Users\dcsliub\Desktop\HierarchyData\abstactdata' 
+
+conferenceList = []
 
 for conference in os.listdir(rootDir):
     

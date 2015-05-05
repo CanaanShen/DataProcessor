@@ -58,13 +58,13 @@ class Tester:
 #         str = "aa bb cc"
 #         if "a" in str:
 #             print(str)
-        docFreqMap = {}
-        docFreqMap["aa"] = 3
-        docFreqMap["cc"] = 1
-        docFreqMap["nn"] = 10
-        docFreqMap["ll"] = 8
-        print(docFreqMap.pop("cc"))
-        print(docFreqMap)
+#         docFreqMap = {}
+#         docFreqMap["aa"] = 3
+#         docFreqMap["cc"] = 1
+#         docFreqMap["nn"] = 10
+#         docFreqMap["ll"] = 8
+#         print(docFreqMap.pop("cc"))
+#         print(docFreqMap)
 #         
 #         for (key, value) in docFreqMap.items():
 #             print(key, value)
@@ -75,6 +75,10 @@ class Tester:
 #         print(str.replace(".txt", ""))
 #         for tuple in sortedList:
 #             print(tuple[0])
+        regex = re.compile("[a-z]+")
+        blankWord = "word"
+        if regex.match(blankWord):
+            print(blankWord)
     #def 
          
 tester = Tester()
