@@ -27,7 +27,7 @@ def copyFile(file, sourceDir, targetDir):
     #targetFile = os.path.join(targetDir, file)
     shutil.copy(sourceFile, targetDir)
 
-def copyFiles_2(sourceDir, targetDir):
+def copyFiles_2(sourceDir, targetDir): 
     print(targetDir)
     if not os.path.exists(targetDir):
         os.mkdir(targetDir)
