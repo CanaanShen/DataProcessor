@@ -4,18 +4,19 @@ Created on Apr 26, 2015
 @author: dcsliub
 '''
 import os
+import re
 
-class NIPSandICMLExtractor:
+class TextExtractor:
     
     def __init__(self):
         self.punctuation = [".", ",", ")", "(", "?", ":", ";", "'", "\"", "-", "#", "$", "&", 
                        "^", "%", "*", "@", "`", "~", "/", "<", ">", "[", "]", "|", "=", "+", "_", "!"
                        "{", "}", "\\"]
-        self.dgwList = ["e.g.", "et al", ".etc", "iii","ii", "i.e.", "(ie)", "(ie"]
+        self.dgwList = ["e.g.", "et al", "e.g", ".etc", "iii","ii", "i.e.", "(ie)", "(ie"]
         
-    def extractNIPSandICML(self, textDir, abstractDir, conference):
-                
-        for subDir in os.listdir(textDir):
+    def extractFromText(self, textDir, abstractDir, conference, yearList):
+        
+        for subDir in yearList:
             subDirPath = os.path.join(textDir, subDir)
             outSubDirPath = os.path.join(abstractDir, subDir)
             if not os.path.exists(outSubDirPath):
@@ -52,7 +53,8 @@ class NIPSandICMLExtractor:
                             if blankWord != "k" and blankWord != "a" and blankWord!= "x" and len(blankWord) == 1:
                                 blankWord = ""
                             
-                            if blankWord.isalpha():                #English word
+                            regex = re.compile("^[a-z]+$")
+                            if regex.match(blankWord):                #English word
                                 word = word + blankWord + " "
                         #for blankWord
                         
@@ -68,12 +70,13 @@ class NIPSandICMLExtractor:
             #for eachFile
     #def
 #class
-conference = "nips"
+conference = "icdt"
 rootDir = r"C:\Users\dcsliub\Desktop\HierarchyData\abstactdata" + "\\" + conference
 textDirName = "text"
 abstractDirName = "abstract"
 textDir = os.path.join(rootDir, textDirName)
 abstractDir = os.path.join(rootDir, abstractDirName)
-nipsExtractor = NIPSandICMLExtractor()
-nipsExtractor.extractNIPSandICML(textDir, abstractDir, conference)
+nipsExtractor = TextExtractor()
+yearList = ["14"]
+nipsExtractor.extractFromText(textDir, abstractDir, conference, yearList)
 print("Program ends")

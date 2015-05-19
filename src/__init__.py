@@ -75,10 +75,27 @@ class Tester:
 #         print(str.replace(".txt", ""))
 #         for tuple in sortedList:
 #             print(tuple[0])
-        regex = re.compile("[a-z]+")
-        blankWord = "word"
-        if regex.match(blankWord):
-            print(blankWord)
+#         regex = re.compile("^[a-z]+$")
+#         blankWord = "wo33rd"
+#         if regex.match(blankWord):
+#             print(blankWord)
+#         dict = {}
+#         dict["aaa"] = 3
+#         dict["bbb"] = 10
+#         dict["ccc"] = 4
+#         print(dict)
+#         dict.pop("bbb")
+#         print(dict)
+#         p = "0.12"
+#         p = float(p)
+#         print(p)
+#         sorted_tuples = sorted(dict.items(), key = lambda d:d[1], reverse = True)
+#         for tuple in sorted_tuples:
+#             print(tuple[0], tuple[1])
+        tupleList = []
+        tupleList.append(("aaa", 2))
+        tupleList.append(("bbb", 5))
+        print(tupleList)
     #def 
          
 tester = Tester()

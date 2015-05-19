@@ -57,8 +57,8 @@ class ECMLPKDDExtractor:
                         if blankWord != "k" and blankWord != "a" and blankWord!= "x" and len(blankWord) == 1:
                             blankWord = ""
                         
-                        regex = re.compile("\\w+")
-                        if regex.match(blankWord):                #English word
+                        regex = re.compile("^[a-z]+$")
+                        if regex.match(blankWord):    #English word
                             word = word + blankWord + " "
                     #for blankWord
                     newAbstract = newAbstract + word + " "

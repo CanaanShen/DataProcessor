@@ -6,6 +6,11 @@ Created on May 4, 2015
 import os
 
 def changeFileFormat(filePath):
+    
+    if not os.path.exists(filePath):
+        print("file does not exist")
+        return
+    
     fileHandler = open(filePath, "r")
     lines = fileHandler.readlines()
     
@@ -43,15 +48,19 @@ def changeFileFormat(filePath):
 
 if __name__ == "__main__":
     
-    rootDir = r"C:\Users\Yueshen\workspace_luna\Mallet\file\output\Conference - Copy"
+    rootDir = r"C:\Users\Yueshen\workspace_luna\Mallet\file\output\Conference"
+    reversedConferenceList = ["ecml", "icdt", "edbt", "sac", "ideas", "wi"]
     for conference in os.listdir(rootDir):
-        targetDir = os.path.join(rootDir, conference)
-        numIteration = str(10000)
-        layer = str(3)
-        numWordsToDisplay = str(30)
-        suffix = '.tree'
-        filePath = os.path.join(targetDir, conference + "_" + numIteration + "_" + layer + suffix)
-        changeFileFormat(filePath)
+        if conference not in reversedConferenceList:
+            targetDir = os.path.join(rootDir, conference)
+            numIteration = str(5000)
+            layer = str(3)
+            numWordsToDisplay = str(30)
+            suffix = "_" + numIteration + "_" + layer + "_" + numWordsToDisplay + '.tree'
+            
+            filePath = os.path.join(targetDir, conference + suffix)
+            print(filePath)
+            changeFileFormat(filePath)
 
-    #for
+    #for conference
     print("Program ends")

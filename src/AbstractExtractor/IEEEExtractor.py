@@ -14,7 +14,7 @@ class IEEEExtractor:
         self.punctuation = [".", ",", ")", "(", "?", ":", ";", "'", "\"", "-", "#", "$", "&", 
                        "^", "%", "*", "@", "`", "~", "/", "<", ">", "[", "]", "|", "=", "+", "_", "!"
                        "{", "}", "\\"]
-        self.dgwList = ["e.g.", "et al", ".etc", "iii","ii", "i.e.", "(ie)", "(ie"]
+        self.dgwList = ["e.g.", "et al", "e.g", ".etc", "iii","ii", "i.e.", "(ie)", "(ie"]
     
     def extractFromIEEE(self, textDir, abstractDir, conference, year):
         
@@ -58,10 +58,11 @@ class IEEEExtractor:
                 blankWords = word.split()
                 word = ""
                 for blankWord in blankWords:
-                    if blankWord != "k" and blankWord != "a" and blankWord!= "x" and len(blankWord) == 1:
+                    if len(blankWord) == 1 and blankWord != "k" and blankWord != "a" and blankWord!= "x" :
                         blankWord = ""
-                            
-                    if blankWord.isalpha():                #English word
+                    
+                    regex = re.compile("^[a-z]+$")  
+                    if regex.match(blankWord):                #English word
                         word = word + blankWord + " "
                 #for blankWord
                              
@@ -78,11 +79,11 @@ class IEEEExtractor:
     #def
 #class
 
-conference = "icdm"
+conference = "wi"
 rootDir = r"C:\Users\dcsliub\Desktop\HierarchyData\abstactdata" + "\\" + conference
 textDirName = "text"
 abstractDirName = "abstract"
-yearList = ["13", "11", "12", "10", "09"]
+yearList = ["07"]
 # yearList = ["14", "12", "10", "09"]
 ieeeExtractor = IEEEExtractor()
 

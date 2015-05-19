@@ -14,8 +14,10 @@ class ACMExtractor:
         self.punctuation = [".", ",", ")", "(", "?", ":", ";", "'", "\"", "-", "#", "$", "&", 
                        "^", "%", "*", "@", "`", "~", "/", "<", ">", "[", "]", "|", "=", "+", "_", "!"
                        "{", "}", "\\"]
-        self.dgwList = ["e.g.", "et al", ".etc", "iii","ii", "i.e.", "(ie)", "(ie"]
+        self.dgwList = ["e.g.", "e.g", "et al", ".etc", "iii","ii", "i.e.", "(ie)", "(ie"]
     
+        self.execptionTagList = ["<u>", "</u>", "<EquationSource>", "<InlineEquation>", "</EquationSource>" , "</InlineEquation>", "</em>", "<em>", "<Emphasis Type=\"SmallCaps\">", "</Emphasis>"]
+        
     def extractAbstract(self, textDir, abstractDir, year, conference):
         
         if not os.path.exists(abstractDir):
@@ -34,14 +36,15 @@ class ACMExtractor:
             divLen = len(divList)
             print("total div number: ", str(divLen))
             for div in divList:
+#                 print(num)
                 pList = div.findAll('p')
 #                 if len(pList) > 1:
 #                     print(pList[0].text)
                 
-                if conference != "vldb" and conference != "wsdm" and num > (divLen/2 - 10):   #workshop or address
+                if conference != "vldb" and conference != "wsdm" and conference != "ecml" and conference != "icdt" and conference != "ideas" and num > (divLen/2 - 8):   #workshop or address
                     break;
                 
-                if conference == "wsdm" and num > (divLen/2- 3):
+                if (conference == "wsdm" or conference == "ecml" or conference == "icdt" or conference == "ideas") and num > (divLen/2 - 4):
                     break;
                 
                 if not pList is None and len(pList) > 0:
@@ -49,15 +52,16 @@ class ACMExtractor:
                     for p in pList:
                         originalText = ""
                         for content in p.contents:
-                            if "<u>" in str(content):
-                                content = content.replace("<u>", " ")
-                                content = content.replace("</u>", " ")
+                            for exceptionTag in self.execptionTagList:
+                                if exceptionTag in str(content):
+                                    content = content.replace(exceptionTag, " ")
+                            #for
                             
                             if ">" in str(content) and "</" in str(content):
                                 originalText = originalText + " " + content.text  #tag
                             else:
                                 originalText = originalText + " " + content       #text
-                        #for
+                        #for content
 
                         words = originalText.strip().lower().split()
                         newText = ""
@@ -79,7 +83,8 @@ class ACMExtractor:
                                 if blankWord != "k" and blankWord != "a" and blankWord!= "x" and len(blankWord) == 1:
                                     blankWord = ""
                             
-                                if blankWord.isalpha():                #English word
+                                regex = re.compile("^[a-z]+$")
+                                if regex.match(blankWord):                #English word
                                     word = word + blankWord + " "
                             #for blankWord
                              
@@ -155,8 +160,9 @@ class ACMExtractor:
                     for blankWord in blankWords:
                         if blankWord != "k" and blankWord != "a" and blankWord!= "x" and len(blankWord) == 1:
                             blankWord = ""
-                            
-                        if blankWord.isalpha():                #English word
+                        
+                        regex = re.compile("^[a-z]+$")
+                        if regex.match(regex):                #English word
                             word = word + blankWord + " "
                     #for blankWord
                              
@@ -179,9 +185,8 @@ class ACMExtractor:
 #class
 
 acmExtractor = ACMExtractor()
-conference = "www"
-# yearList = ["13", "11"]
-yearList = ["14", "13", "12", "11", "10", "09"]
+conference = "wsdm"
+yearList = ["08"]
 rootDir = r'C:\Users\dcsliub\Desktop\HierarchyData\abstactdata' +'\\' + conference 
 
 textDirName = "text"
